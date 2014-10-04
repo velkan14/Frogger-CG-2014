@@ -1,8 +1,5 @@
 #include "Camera.h"
 
-Camera::Camera() {
-}
-
 Camera::Camera(double near, double far){
 }
 
