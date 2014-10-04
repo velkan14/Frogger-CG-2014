@@ -1,5 +1,6 @@
 #include "Entity.h"
 
+
 class Camera : Entity {
 
 protected:
@@ -9,7 +10,6 @@ protected:
 	double _far;
 
 public:
-	Camera();
 	Camera(double near, double far);
 	~Camera();
 

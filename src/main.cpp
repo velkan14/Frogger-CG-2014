@@ -1,16 +1,21 @@
-#include "Vector3.h"
-#include <iostream>
+#include "GameManager.h"
+GameManager * gm = 0;
+void reshape(GLsizei w, GLsizei h) {
+	if (gm) gm->reshape(w,h); 
+}
+void display(){
+	if (gm) gm->display();
+}
 
-int main()
-{
-	Vector3 vec(1, 1, 1);
-	Vector3 vec2(2, 2, 2);
-
-	std::cout << "x:" << vec.getX()<<" y:" << vec.getY() << " z:"<< vec.getZ() << std::endl;
-	std::cout << "x:" << vec2.getX()<<" y:" << vec2.getY() << " z:"<< vec2.getZ() << std::endl;
-	Vector3 vec3 = vec-vec2;
-	vec = vec3;
-	std::cout << "x:" << vec.getX()<<" y:" << vec.getY() << " z:"<< vec.getZ() << std::endl;
-	system("pause");
+int main(int argc, char ** argv) {
+	gm = new GameManager();
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitWindowSize(200, 200);
+	glutCreateWindow("Windows & Viewports l");
+	glutReshapeFunc(reshape);
+	glutDisplayFunc(display);
+	glClearColor(1., 1., 1., 0.);
+	glutMainLoop();
 	return 0;
 }

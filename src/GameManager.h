@@ -1,6 +1,7 @@
-#include <GL/glut.h>
-#include "GameObject.h"
-#include "Camera.h"
+#include <GL\glut.h>
+#include "OrthogonalCamera.h"
+class Camera;
+class GameObject;
 
 class GameManager {
 
@@ -13,6 +14,7 @@ public:
 	~GameManager();
 
 	void display();
+
 	void reshape(GLsizei w, GLsizei h);
 
 	void keyPressed();
