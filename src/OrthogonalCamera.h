@@ -1,6 +1,8 @@
+#ifndef ORTHONOGALCAMERA_H
+#define ORTHOGONALCAMERA_H
 #include "Camera.h"
 
-class OrthogonalCamera : Camera {
+class OrthogonalCamera : public Camera {
 
 private:
 	double _left;
@@ -18,3 +20,5 @@ public:
 
 	void computeVisualizationMatrix();
 };
+
+#endif

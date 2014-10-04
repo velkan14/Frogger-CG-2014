@@ -1,6 +1,8 @@
+#ifndef DYNAMICOBJECT_H
+#define DYNAMICOBJECT_H
 #include "GameObject.h"
 
-class DynamicObject : GameObject {
+class DynamicObject : public GameObject {
 
 protected:
 	Vector3 _speed;
@@ -16,3 +18,4 @@ public:
 
 	Vector3 getSpeed();
 };
+#endif

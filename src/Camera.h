@@ -1,7 +1,10 @@
+#ifndef CAMERA_H
+#define CAMERA_H
+
 #include "Entity.h"
 
 
-class Camera : Entity {
+class Camera : public Entity {
 
 protected:
 	Vector3 _up;
@@ -19,3 +22,5 @@ public:
 
 	void computeVisualizationMatrix();
 };
+
+#endif

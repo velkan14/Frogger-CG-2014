@@ -1,7 +1,9 @@
 #include "GameManager.h"
 
+
 GameManager::GameManager() {
-	_cameras = (Camera*) new OrthogonalCamera(-2.,2.,-2.,2., 3., 3.);
+	_cameras = new OrthogonalCamera(-7.,7.,0.,14., 3., 3.);
+	_game_objects = * new std::vector<GameObject *>;
 }
 
 GameManager::~GameManager() {
@@ -10,6 +12,9 @@ GameManager::~GameManager() {
 void GameManager::display() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	//Por cada objecto fazer draw!!! :D
+	std::cout <<"cenas1";
+	for(GameObject * g : _game_objects) g->draw();
+
 	glFlush();
 }
 
@@ -47,5 +52,12 @@ void GameManager::update() {
 }
 
 void GameManager::init() {
+	_game_objects.push_back(new Frog());
+	_game_objects.push_back(new Road());
+	_game_objects.push_back(new Roadside());
+	_game_objects.push_back(new River());
+	_game_objects.push_back(new Riverside());
+
+	
 	
 }

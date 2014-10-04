@@ -1,10 +1,14 @@
+#ifndef GAMEOBJECT_H
+#define GAMEOBJECT_H
 #include "Entity.h"
 
-class GameObject : Entity {
+class GameObject : public Entity {
 
 public:
 	GameObject();
 	~GameObject();
-	void draw();
+	void virtual draw();
 	void update(double delta_t);
 };
+
+#endif
