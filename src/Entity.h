@@ -2,6 +2,7 @@
 #define ENTITY_H
 
 #include "Vector3.h"
+#include <GL\glut.h>
 
 class Entity {
 
