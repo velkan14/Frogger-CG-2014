@@ -6,6 +6,7 @@ class River : public StaticObject {
 
 public:
 	River();
+	River(double x,double y,double z);
 	~River();
 	void draw();
 };

@@ -4,12 +4,18 @@
 Frog::Frog() {
 }
 
+Frog::Frog(double x, double y, double z):DynamicObject(x,y,z){
+}
+
 Frog::~Frog() {
 }
 
+/*void DynamicObject::update(double delta_t){
+	//setPosition(getPosition() + getSpeed()*delta_t);
+}*/
+
 void Frog::draw() {
-	std::cout <<"cenas2";
-	
+
 	glColor3f(1., 0., 0.);
 	//Left Eye
 	glPushMatrix();

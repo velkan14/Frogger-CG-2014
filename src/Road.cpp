@@ -3,6 +3,8 @@
 Road::Road(){
 }
 
+Road::Road(double x,double y,double z):StaticObject(x,y,z){}
+
 Road::~Road(){
 }
 

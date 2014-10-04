@@ -5,10 +5,11 @@
 class DynamicObject : public GameObject {
 
 protected:
-	Vector3 _speed;
+	Vector3 * _speed;
 
 public:
 	DynamicObject();
+	DynamicObject(double  x, double y, double z);
 	~DynamicObject();
 
 	void update(double delta_t);

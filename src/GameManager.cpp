@@ -13,7 +13,15 @@ void GameManager::display() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	//Por cada objecto fazer draw!!! :D
 	std::cout <<"cenas1";
-	for(GameObject * g : _game_objects) g->draw();
+	for(GameObject * g : _game_objects){
+		glPushMatrix();
+		std::cout << (g->getPosition()->getX()) << "  " << g->getPosition()->getY() << std::endl;
+		glTranslated(g->getPosition()->getX(),g->getPosition()->getY(),g->getPosition()->getZ());
+		//glTranslated(5,3,0);
+		g->draw();
+		glPopMatrix();
+	
+	}
 
 	glFlush();
 }
@@ -39,7 +47,19 @@ void GameManager::reshape(GLsizei w, GLsizei h) {
 	}
 }
 
-void GameManager::keyPressed() {
+void GameManager::keyPressed(unsigned char key) {
+	if(key ==97) {
+		frogger->setSpeed(0,-5,0);
+	}//Down
+	else if(key == 111) {
+		frogger->setSpeed(-5,0,0);
+	}//Esquerda
+	else if (key == 112){
+		frogger->setSpeed(5,0,0);
+	} //Direita
+	else if (key == 113){
+		frogger->setSpeed(0,5,0);
+	} //Cima
 }
 
 void GameManager::onTimer() {
@@ -49,15 +69,16 @@ void GameManager::idle() {
 }
 
 void GameManager::update() {
+		
 }
 
 void GameManager::init() {
-	_game_objects.push_back(new Frog());
-	_game_objects.push_back(new Road());
-	_game_objects.push_back(new Roadside());
-	_game_objects.push_back(new River());
-	_game_objects.push_back(new Riverside());
-
-	
-	
+	frogger = new Frog(-2,10.51,0);
+	_game_objects.push_back(new Road(0,0,0));
+	_game_objects.push_back(new Roadside(0,0,0));
+	_game_objects.push_back(new River(0,0,0));
+	_game_objects.push_back(new Riverside(0,0,0));
+	_game_objects.push_back(new TimberLog(-2,10.5,0));
+	_game_objects.push_back(new Car(2,.5,0));
+	_game_objects.push_back(frogger);
 }

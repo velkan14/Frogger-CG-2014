@@ -3,6 +3,8 @@
 Roadside::Roadside(){
 }
 
+Roadside::Roadside(double x,double y,double z):StaticObject(x,y,z){}
+
 Roadside::~Roadside(){
 }
 

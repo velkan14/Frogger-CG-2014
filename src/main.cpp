@@ -8,6 +8,9 @@ void reshape(GLsizei w, GLsizei h) {
 void display(){
 	gm->display();
 }
+void input(unsigned char key, int x, int y){
+	gm->keyPressed(key);
+}
 
 int main(int argc, char ** argv) {
 	gm = new GameManager();
@@ -18,6 +21,8 @@ int main(int argc, char ** argv) {
 	glutCreateWindow("Frogger");
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
+	glutIdleFunc(display);
+	glutKeyboardFunc(input);
 	glClearColor(1., 1., 1., 0.);
 	glutMainLoop();
 	return 0;

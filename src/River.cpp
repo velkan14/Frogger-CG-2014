@@ -3,6 +3,8 @@
 River::River(){
 }
 
+River::River(double x,double y,double z):StaticObject(x,y,z){}
+
 River::~River(){
 }
 

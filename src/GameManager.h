@@ -20,6 +20,7 @@ class GameManager {
 private:
 	std::vector<GameObject *> _game_objects;
 	Camera * _cameras;
+	Frog * frogger;
 
 public:
 	GameManager();
@@ -29,7 +30,7 @@ public:
 
 	void reshape(GLsizei w, GLsizei h);
 
-	void keyPressed();
+	void keyPressed(unsigned char key);
 
 	void onTimer();
 

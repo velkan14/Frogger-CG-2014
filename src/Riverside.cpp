@@ -3,6 +3,8 @@
 Riverside::Riverside(){
 }
 
+Riverside::Riverside(double x,double y,double z):StaticObject(x,y,z){}
+
 Riverside::~Riverside(){
 }
 
