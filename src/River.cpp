@@ -7,14 +7,12 @@ River::~River(){
 }
 
 void River::draw(){
-<<<<<<< HEAD
+
 	glColor3f(0.0f, 0.0f, 1.0f); //blue
 	glPushMatrix();
 	glTranslatef(0, 10.5, 0);
 	glScalef(14, 5, 0);
 	glutSolidCube(1);
 	glPopMatrix();
-=======
-		
->>>>>>> origin/master
+
 }
