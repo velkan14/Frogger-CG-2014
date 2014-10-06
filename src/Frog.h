@@ -10,6 +10,7 @@ public:
 	Frog(double x, double y, double z);
 	~Frog();
 	void draw();
+
 };
 
 #endif

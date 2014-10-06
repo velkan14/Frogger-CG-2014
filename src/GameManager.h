@@ -21,6 +21,7 @@ private:
 	std::vector<GameObject *> _game_objects;
 	Camera * _cameras;
 	Frog * frogger;
+	double t_act, t_ant;
 
 public:
 	GameManager();
@@ -32,11 +33,13 @@ public:
 
 	void keyPressed(unsigned char key);
 
+	void keyUp(unsigned char key);
+
 	void onTimer();
 
 	void idle();
 
-	void update();
+	void update(double delta_t);
 
 	void init();
 };

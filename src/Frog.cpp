@@ -14,6 +14,8 @@ Frog::~Frog() {
 	//setPosition(getPosition() + getSpeed()*delta_t);
 }*/
 
+
+
 void Frog::draw() {
 
 	glColor3f(1., 0., 0.);
