@@ -1,8 +1,6 @@
 #include "Camera.h"
 
 Camera::Camera(double near, double far){
-	_at = * new Vector3(0,0,10);
-	_up = * new Vector3(0,0,0);
 }
 
 Camera::~Camera() {
@@ -15,4 +13,12 @@ void Camera::computeProjectionMatrix() {
 }
 
 void Camera::computeVisualizationMatrix() {
+}
+
+void Camera::reshape(GLsizei w, GLsizei h) {
+	_aspect = (float)w / h;
+	glViewport(0, 0, w, h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	computeProjectionMatrix();
 }

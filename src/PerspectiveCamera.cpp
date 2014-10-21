@@ -13,5 +13,8 @@ PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, d
 		gluPerspective(_fovy, _aspect, _near, _far);
 	}
 	void PerspectiveCamera::computeVisualizationMatrix(){
-		//gluLookAt();
+		gluLookAt(0.0, 0, 5, 0, 0, 0, 0.0, 1.0, 0.0);
+		//gluLookAt(-5,5,3,0,1,0,0,0,1);
+		//gluLookAt(0,0,20, 0,0,0,0,0,1);
+		//glRotated(-15,1,0,0);
 	}

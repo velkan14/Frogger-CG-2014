@@ -11,6 +11,8 @@ protected:
 	Vector3 _at;
 	double _near;
 	double _far;
+	double _aspect; 
+
 
 public:
 	Camera(double near, double far);
@@ -21,6 +23,8 @@ public:
 	void virtual computeProjectionMatrix();
 
 	void virtual computeVisualizationMatrix();
+
+	void reshape(GLsizei w, GLsizei h);
 };
 
 #endif

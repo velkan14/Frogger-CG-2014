@@ -6,7 +6,6 @@ class PerspectiveCamera : public Camera {
 
 private:
 	double _fovy;
-	double _aspect;
 
 public:
 
