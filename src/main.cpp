@@ -15,7 +15,7 @@ void keyPressed(unsigned char key, int x, int y){
 void onTimer(int i){
 	gm->onTimer();
 	
-	glutTimerFunc(0, onTimer,10);
+	glutTimerFunc(20, onTimer,10);
 }
 
 void keyUp(unsigned char key, int x, int y){
@@ -27,13 +27,13 @@ int main(int argc, char ** argv) {
 	gm->init();
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-	glutInitWindowSize(200, 200);
+	glutInitWindowSize(400, 400);
 	glutCreateWindow("Frogger");
 	glEnable(GL_DEPTH_TEST);
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
 	glutIdleFunc(display);
-	glutTimerFunc(0, onTimer,10);
+	glutTimerFunc(20, onTimer,10);
 	glutIgnoreKeyRepeat(1);
 	glutKeyboardFunc(keyPressed);
 	glutKeyboardUpFunc(keyUp);

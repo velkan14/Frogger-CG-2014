@@ -2,9 +2,9 @@
 
 
 GameManager::GameManager() {
-	//_cameras = new OrthogonalCamera(-10.,10.,0.,14.,0,10);
+	_cameras = new OrthogonalCamera(-10, 10, 0, 14, -1, 10);
 	
-	_cameras = new PerspectiveCamera(60, 1, 1.5, 20); 
+	//_cameras = new PerspectiveCamera(65, 1, 1, 20); 
 
 	_game_objects = * new std::vector<GameObject *>;
 	t_act=0; 
@@ -49,44 +49,44 @@ void GameManager::keyPressed(unsigned char key) {
 	glLoadIdentity();
 
 	(*_cameras).computeProjectionMatrix();
-	if(key =='a') {
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, -0.01, 0));
+	if(key == 'a' || key == 'A') {
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, -0.006, 0));
 		//frogger->setSpeed(0,-0.01,0);
 	}//Down
-	else if(key == 111) {
+	else if (key == 'o' || key == 'O') {
 		//std::cout << "o" << std::endl;
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(-0.01,0,0));
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(-0.007,0,0));
 		//frogger->setSpeed(-0.01,0,0);
 	}//Esquerda
-	else if (key == 112){
+	else if (key == 'p' || key == 'P'){
 		//std::cout << "p" << std::endl;
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0.01,0,0));
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0.007,0,0));
 		//frogger->setSpeed(0.01,0,0);
 	} //Direita
-	else if (key == 113){
+	else if (key == 'q' || key == 'Q'){
 		//std::cout << "q" << std::endl;
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0,0.01,0));
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0,0.006,0));
 		//frogger->setSpeed(0,0.01,0);
 	} //Cima
 }
 
 
 void GameManager::keyUp (unsigned char key) {  
-	if(key =='a') {
+	if (key == 'a' || key == 'A') {
 		//std::cout << "a" << std::endl;
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, 0.01, 0));
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, 0.006, 0));
 	}//Down
-	else if(key == 111) {
+	else if (key == 'o' || key == 'O') {
 		//std::cout << "o" << std::endl;
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0.01,0,0));
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0.007,0,0));
 	}//Esquerda
-	else if (key == 112){
+	else if (key == 'p' || key == 'P'){
 		//std::cout << "p" << std::endl;
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(-0.01,0,0));
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(-0.007,0,0));
 	} //Direita
-	else if (key == 113){
+	else if (key == 'q' || key == 'Q'){
 		//std::cout << "q" << std::endl;
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0,-0.01,0));
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0,-0.006,0));
 	} //Cima
 
 
@@ -115,12 +115,12 @@ void GameManager::update(double delta_t) {
 }
 
 void GameManager::init() {
-	frogger = new Frog(0,0.5,0);
+	frogger = new Frog(0,0.5,0.5);
 	_game_objects.push_back(new Road(0,0,0));
 	_game_objects.push_back(new Roadside(0,0,0));
 	_game_objects.push_back(new River(0,0,0));
 	_game_objects.push_back(new Riverside(0,0,0));
-	_game_objects.push_back(new TimberLog(-2,10.5,0));
-	_game_objects.push_back(new Car(2,3.5,0));
+	_game_objects.push_back(new TimberLog(-2,10.5,0.5));
+	_game_objects.push_back(new Car(2,3.5,0.5));
 	_game_objects.push_back(frogger);
 }
