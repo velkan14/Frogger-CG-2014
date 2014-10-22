@@ -2,9 +2,9 @@
 
 
 GameManager::GameManager() {
-	_cameras = new OrthogonalCamera(-10, 10, 0, 14, -1, 10);
+	//_cameras = new OrthogonalCamera(-10, 10, 0, 14, -1, 10);
 	
-	//_cameras = new PerspectiveCamera(65, 1, 1, 20); 
+	_cameras = new PerspectiveCamera(65, 1, 1, 20); 
 
 	_game_objects = * new std::vector<GameObject *>;
 	t_act=0; 
