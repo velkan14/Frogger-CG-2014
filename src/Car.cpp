@@ -12,7 +12,7 @@ Car::~Car() {
 void Car::draw() {
 
 	glPushMatrix();
-		//glTranslatef(4, 3.5, 0);
+	glTranslatef(0, 0, 0.375);
 	
 		glColor3f(0., 0., 0.);
 		//carbody

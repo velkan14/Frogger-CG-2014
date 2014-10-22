@@ -2,6 +2,7 @@
 #define GAMEMANAGER_H
 #include <vector>
 #include "OrthogonalCamera.h"
+#include "PerspectiveCamera.h"
 #include "Frog.h"
 #include "Car.h"
 #include "River.h"

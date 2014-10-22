@@ -9,6 +9,7 @@ private:
 	double _right;
 	double _bottom;
 	double _top;
+	double _ratio;
 
 public:
 	OrthogonalCamera(double left, double right, double bottom, double top, double near, double far);

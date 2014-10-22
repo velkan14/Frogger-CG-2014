@@ -12,15 +12,14 @@ void DynamicObject::update(double delta_t) {
 	double x = getPosition()->getX() + getSpeed()->getX() * delta_t;
 	double y = getPosition()->getY() + getSpeed()->getY() * delta_t;
 	double z = getPosition()->getZ() + getSpeed()->getZ() * delta_t;
-	std::cout << "x "<< x << "y "<<y<< "z " << z << std::endl;
+	//std::cout << "x "<< x << "y "<<y<< "z " << z << std::endl;
 	setPosition(x,y,z);
 
 
 }
 	
 void DynamicObject::setSpeed(const Vector3 & speed) {
-	//_speed = speed;
-
+	_speed->set(speed.getX(), speed.getY(), speed.getZ());
 }
 	
 void DynamicObject::setSpeed(double x, double y, double z) {

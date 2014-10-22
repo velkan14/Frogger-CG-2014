@@ -11,16 +11,20 @@ protected:
 	Vector3 _at;
 	double _near;
 	double _far;
+	double _aspect; 
+
 
 public:
 	Camera(double near, double far);
 	~Camera();
 
-	void update();
+	void virtual update();
 
-	void computeProjectionMatrix();
+	void virtual computeProjectionMatrix();
 
-	void computeVisualizationMatrix();
+	void virtual computeVisualizationMatrix();
+
+	void reshape(GLsizei w, GLsizei h);
 };
 
 #endif

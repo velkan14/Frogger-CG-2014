@@ -8,7 +8,7 @@ void reshape(GLsizei w, GLsizei h) {
 void display(){
 	gm->display();
 }
-void input(unsigned char key, int x, int y){
+void keyPressed(unsigned char key, int x, int y){
 	gm->keyPressed(key);
 	
 }
@@ -29,11 +29,13 @@ int main(int argc, char ** argv) {
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowSize(200, 200);
 	glutCreateWindow("Frogger");
+	glEnable(GL_DEPTH_TEST);
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
 	glutIdleFunc(display);
 	glutTimerFunc(0, onTimer,10);
-	glutKeyboardFunc(input);
+	glutIgnoreKeyRepeat(1);
+	glutKeyboardFunc(keyPressed);
 	glutKeyboardUpFunc(keyUp);
 	glClearColor(1., 1., 1., 0.);
 	glutMainLoop();
