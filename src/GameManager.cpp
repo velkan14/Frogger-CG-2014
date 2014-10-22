@@ -4,7 +4,8 @@
 GameManager::GameManager() {
 	//_cameras = new OrthogonalCamera(-10.,10.,0.,14.,0,10);
 	
-	_cameras = new PerspectiveCamera(70, 1, 5, 20); 
+	_cameras = new PerspectiveCamera(60, 1, 1.5, 20); 
+
 	_game_objects = * new std::vector<GameObject *>;
 	t_act=0; 
 	t_ant=0;
@@ -17,6 +18,9 @@ void GameManager::display() {
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	//Por cada objecto fazer draw!!! :D
 	
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 
 	(*_cameras).computeVisualizationMatrix();
 
@@ -40,6 +44,10 @@ void GameManager::reshape(GLsizei w, GLsizei h) {
 
 void GameManager::keyPressed(unsigned char key) {
 	//std::cout << "in " << key << std::endl;
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
 	(*_cameras).computeProjectionMatrix();
 	if(key =='a') {
 		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, -0.01, 0));
