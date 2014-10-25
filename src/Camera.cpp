@@ -8,7 +8,7 @@ Camera::Camera(double near, double far){
 Camera::~Camera() {
 }
 
-void Camera::update() {
+void Camera::update(Vector3 frog_pos) {
 }
 
 void Camera::computeProjectionMatrix() {

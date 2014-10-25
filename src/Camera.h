@@ -18,7 +18,7 @@ public:
 	Camera(double near, double far);
 	~Camera();
 
-	void virtual update();
+	void virtual update(Vector3 frog_pos);
 
 	void virtual computeProjectionMatrix();
 

@@ -12,10 +12,6 @@ OrthogonalCamera::~OrthogonalCamera() {
 
 }
 
-void OrthogonalCamera::update() {
-
-}
-
 void OrthogonalCamera::computeProjectionMatrix() {
 
 	//glOrtho(_left, _right, _bottom, _top, _near, _far);

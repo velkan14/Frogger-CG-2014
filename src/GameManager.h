@@ -20,7 +20,9 @@ class GameManager {
 
 private:
 	std::vector<GameObject *> _game_objects;
-	Camera * _cameras;
+	std::vector<Camera *> _cameras;
+	int active_camera;
+	int _w, _h;
 	Frog * frogger;
 	double t_act, t_ant;
 

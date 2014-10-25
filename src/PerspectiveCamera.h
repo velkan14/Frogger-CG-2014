@@ -5,14 +5,14 @@
 class PerspectiveCamera : public Camera {
 
 private:
-	double _fovy;
+	double _fovy, _eyeX, _eyeY, _eyeZ;
 
 public:
 
-	PerspectiveCamera(double fovy, double aspect, double zNear, double zFar);
+	PerspectiveCamera(double fovy, double aspect, double zNear, double zFar, double eyeX, double eyeY, double eyeZ);
 	~PerspectiveCamera();
 
-	void update();
+	void update(Vector3 frog_pos);
 	void computeProjectionMatrix();
 	void computeVisualizationMatrix();
 	
