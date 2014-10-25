@@ -4,7 +4,7 @@
 PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, double zFar, double eyeX, double eyeY, double eyeZ):Camera(zNear, zFar){
 		_fovy = fovy;
 		_aspect = aspect;
-		_eyeX = eyeX;
+			_eyeX = eyeX;
 		_eyeY = eyeY;
 		_eyeZ = eyeZ;
 	}
@@ -24,5 +24,7 @@ PerspectiveCamera::PerspectiveCamera(double fovy, double aspect, double zNear, d
 		/*glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();*/
 		gluLookAt(_eyeX, _eyeY, _eyeZ, (0 + _eyeX), (7 + _eyeY), (1 - _eyeZ), 0, 1, 0);
-		//glRotatef(-10, 1, 0, 0);
+		//gluLookAt(-5,5,3,0,1,0,0,0,1);
+		//gluLookAt(0,0,20, 0,0,0,0,0,1);
+		//glRotated(-15,1,0,0);
 	}

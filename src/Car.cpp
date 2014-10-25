@@ -4,10 +4,23 @@ Car::Car() {
 }
 
 Car::Car(double x,double y,double z):DynamicObject(x,y,z){
+	_x = .9;
+	_y = .4;
 }
 
 Car::~Car() {
 }
+
+
+double Car::checkPositionX(double x) {
+	if(x > 16) return -13;
+	return x;
+}
+
+double Car::checkPositionY(double y){
+	return y;
+}
+
 
 void Car::draw() {
 

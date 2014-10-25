@@ -12,8 +12,8 @@ OrthogonalCamera::~OrthogonalCamera() {
 
 }
 
-void OrthogonalCamera::computeProjectionMatrix() {
 
+void OrthogonalCamera::computeProjectionMatrix() {
 	//glOrtho(_left, _right, _bottom, _top, _near, _far);
 	_ratio = (_right - _left) / (_top- _bottom);
 	if (_ratio < _aspect)

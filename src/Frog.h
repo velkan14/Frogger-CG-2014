@@ -6,10 +6,14 @@
 class Frog : public DynamicObject {
 
 public:
+	int _car;
+	int _log;
 	Frog();
 	Frog(double x, double y, double z);
 	~Frog();
 	void draw();
+	double checkPositionX(double x);
+	double checkPositionY(double y);
 
 };
 

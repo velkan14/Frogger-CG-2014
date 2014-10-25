@@ -9,5 +9,7 @@ public:
 	Car(double x, double y, double z);
 	~Car();
 	void draw();
+	double checkPositionX(double x);
+	double checkPositionY(double y);
 };
 #endif

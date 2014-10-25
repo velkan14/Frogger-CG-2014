@@ -24,6 +24,8 @@ private:
 	int active_camera;
 	int _w, _h;
 	Frog * frogger;
+	Car * car;
+	TimberLog * log;
 	double t_act, t_ant;
 
 public:
@@ -45,6 +47,9 @@ public:
 	void update(double delta_t);
 
 	void init();
+
+	void collisionCar();
+	void collisionTimberLog();
 };
 
 #endif

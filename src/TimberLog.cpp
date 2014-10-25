@@ -4,6 +4,9 @@ TimberLog::TimberLog() {
 }
 
 TimberLog::TimberLog(double x, double y, double z):DynamicObject(x,y,z){
+	_x = 1.5;
+	_y = .5;
+
 }
 
 TimberLog::~TimberLog() {
@@ -16,4 +19,13 @@ void TimberLog::draw() {
 	glScalef(3, 1, .6);
 	glutSolidCube(1);
 	glPopMatrix();
+}
+
+double TimberLog::checkPositionX(double x) {
+	if(x > 16) return -13;
+	return x;
+}
+
+double TimberLog::checkPositionY(double y){
+	return y;
 }

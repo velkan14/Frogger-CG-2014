@@ -5,6 +5,10 @@ Frog::Frog() {
 }
 
 Frog::Frog(double x, double y, double z):DynamicObject(x,y,z){
+	_x = .5;
+	_y = .5;
+	_car = 0;
+	_log = 0;
 }
 
 Frog::~Frog() {
@@ -14,7 +18,17 @@ Frog::~Frog() {
 	//setPosition(getPosition() + getSpeed()*delta_t);
 }*/
 
+double Frog::checkPositionX(double x) {
+	if(x > 9.5) return 9.5;
+	else if (x <-9.5) return -9.5;
+	return x;
+}
 
+double Frog::checkPositionY(double y){
+	if(y > 13.5) return 13.5;
+	else if (y<0.5) return 0.5;
+	return y;
+}
 
 void Frog::draw() {
 	glPushMatrix();

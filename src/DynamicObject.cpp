@@ -9,13 +9,14 @@ DynamicObject::~DynamicObject() {
 }
 
 void DynamicObject::update(double delta_t) {
-	double x = getPosition()->getX() + getSpeed()->getX() * delta_t;
-	double y = getPosition()->getY() + getSpeed()->getY() * delta_t;
+	double x = checkPositionX(getPosition()->getX() + getSpeed()->getX() * delta_t);
+	double y = checkPositionY(getPosition()->getY() + getSpeed()->getY() * delta_t);
 	double z = getPosition()->getZ() + getSpeed()->getZ() * delta_t;
-	//std::cout << "x "<< x << "y "<<y<< "z " << z << std::endl;
+	xmax = x + _x;
+	xmin = x - _x;
+	ymax = y + _y;
+	ymin = y - _y;
 	setPosition(x,y,z);
-
-
 }
 	
 void DynamicObject::setSpeed(const Vector3 & speed) {
@@ -29,3 +30,19 @@ void DynamicObject::setSpeed(double x, double y, double z) {
 Vector3 * DynamicObject::getSpeed() {
 	return _speed;
 }
+
+double DynamicObject::checkPositionX(double x){
+	return x;
+}
+
+double DynamicObject::checkPositionY(double y){
+	return y;
+}
+
+//double DynamicObject::checkPositionX(double x){
+//	return x;
+//}
+//
+//double DynamicObject::checkPositionY(double y){
+//	return y;
+//}

@@ -9,7 +9,7 @@ private:
 
 public:
 
-	PerspectiveCamera(double fovy, double aspect, double zNear, double zFar, double eyeX, double eyeY, double eyeZ);
+	PerspectiveCamera(double fovy, double aspect, double zNear, double zFar,double eyeX, double eyeY, double eyeZ);
 	~PerspectiveCamera();
 
 	void update(Vector3 frog_pos);
