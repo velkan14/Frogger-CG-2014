@@ -41,21 +41,21 @@ void Frog::draw() {
 		glPushMatrix();
 		glTranslated(-0.25,0.25,0.1);
 		glScalef(0.1,0.11, .1);
-		glutSolidSphere(1,20,20);
+		glutSolidSphere(1,10,10);
 		glPopMatrix();
 
 		//Right Eye
 		glPushMatrix();
 		glTranslated(0.25,0.25,0.1);
 		glScalef(0.1, 0.11, .1);
-		glutSolidSphere(1,20,20);
+		glutSolidSphere(1,10,10);
 		glPopMatrix();
 	
 		glColor3f(0., 0.8, 0.);
 			//Main Body
 		glPushMatrix();
 		glScalef(0.35, 0.45, .25);
-		glutSolidSphere(1,50,50);
+		glutSolidSphere(1,10,10);
 		glPopMatrix();
 		glPopMatrix();
 	

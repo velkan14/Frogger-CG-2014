@@ -37,7 +37,7 @@ int main(int argc, char ** argv) {
 	glutDisplayFunc(display);
 	glutIdleFunc(display);
 	glutTimerFunc(20, onTimer,10);
-	glutTimerFunc(50, onTimer, 20);
+	//glutTimerFunc(50, onTimer, 20);
 	glutIgnoreKeyRepeat(1);
 	glutKeyboardFunc(keyPressed);
 	glutKeyboardUpFunc(keyUp);

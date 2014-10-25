@@ -21,12 +21,14 @@ class GameManager {
 private:
 	std::vector<GameObject *> _game_objects;
 	std::vector<Camera *> _cameras;
+	std::vector<Car *> _cars;
+	std::vector<TimberLog *> _logs;
+
 	int active_camera;
 	int _w, _h;
 	Frog * frogger;
-	Car * car;
-	TimberLog * log;
 	double t_act, t_ant;
+	int saponolog;
 
 public:
 	GameManager();
@@ -48,8 +50,8 @@ public:
 
 	void init();
 
-	void collisionCar();
-	void collisionTimberLog();
+	void collisionCar(Car * car);
+	void collisionTimberLog(TimberLog * log);
 };
 
 #endif

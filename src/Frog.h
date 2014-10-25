@@ -14,7 +14,6 @@ public:
 	void draw();
 	double checkPositionX(double x);
 	double checkPositionY(double y);
-
 };
 
 #endif

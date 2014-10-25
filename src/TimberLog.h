@@ -5,6 +5,7 @@
 class TimberLog : public  DynamicObject {
 
 public:
+	int _log;
 	TimberLog();
 	TimberLog(double x,double y,double z);
 	~TimberLog();

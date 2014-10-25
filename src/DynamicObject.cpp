@@ -38,11 +38,3 @@ double DynamicObject::checkPositionX(double x){
 double DynamicObject::checkPositionY(double y){
 	return y;
 }
-
-//double DynamicObject::checkPositionX(double x){
-//	return x;
-//}
-//
-//double DynamicObject::checkPositionY(double y){
-//	return y;
-//}

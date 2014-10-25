@@ -47,13 +47,13 @@ void Car::draw() {
 		glTranslatef(-.25, .4, 0);
 		glRotatef(-45.0, 0.0, 1.0, 0.0);
 		glRotatef(-90.0, 1.0, 0.0, 0.0);
-		glutSolidTorus(.1, .13, 10, 20);
+		glutSolidTorus(.1, .13, 5, 5);
 		glPopMatrix();
 		glPushMatrix();
 		glTranslatef(-.25, -0.4, 0);
 		glRotatef(-45.0, 0.0, 1.0, 0.0);
 		glRotatef(-90.0, 1.0, 0.0, 0.0);
-		glutSolidTorus(0.1, .13, 10, 20);
+		glutSolidTorus(0.1, .13, 5, 5);
 		glPopMatrix();
 
 		glPopMatrix();
@@ -72,13 +72,13 @@ void Car::draw() {
 		glTranslatef(.25, .4, 0);
 		glRotatef(-45.0, 0.0, 1.0, 0.0);
 		glRotatef(-90.0, 1.0, 0.0, 0.0);
-		glutSolidTorus(.1, .13, 10, 20);
+		glutSolidTorus(.1, .13, 5, 5);
 		glPopMatrix();
 		glPushMatrix();
 		glTranslatef(.25, -.4, 0);
 		glRotatef(-45.0, 0.0, 1.0, 0.0);
 		glRotatef(-90.0, 1.0, 0.0, 0.0);
-		glutSolidTorus(.1, .13, 10, 20);
+		glutSolidTorus(.1, .13, 5, 5);
 		glPopMatrix();
 
 		glPopMatrix();

@@ -6,7 +6,7 @@ TimberLog::TimberLog() {
 TimberLog::TimberLog(double x, double y, double z):DynamicObject(x,y,z){
 	_x = 1.5;
 	_y = .5;
-
+	_log=0;
 }
 
 TimberLog::~TimberLog() {
