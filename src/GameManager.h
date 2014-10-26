@@ -10,6 +10,7 @@
 #include "TimberLog.h"
 #include "Roadside.h"
 #include "Riverside.h"
+#include "border.h"
 
 
 class Camera;

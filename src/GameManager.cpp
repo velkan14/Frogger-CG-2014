@@ -203,6 +203,7 @@ void GameManager::init() {
 	_game_objects.push_back(new Roadside(0,0,0));
 	_game_objects.push_back(new River(0,0,0));
 	_game_objects.push_back(new Riverside(0,0,0));
+	_game_objects.push_back(new border(0, 0, 0));
 	_game_objects.push_back(frogger);
 	
 
