@@ -28,7 +28,8 @@ private:
 	int _w, _h;
 	Frog * frogger;
 	double t_act, t_ant;
-	int saponolog;
+	int t_speed, t_aux;
+	double minspeed, maxspeed;
 
 public:
 	GameManager();
@@ -51,7 +52,10 @@ public:
 	void init();
 
 	void collisionCar(Car * car);
-	void collisionTimberLog(TimberLog * log);
+	void collisionTimberLog(TimberLog * log, int i);
+
+	double randomPosition();
+	double randomSpeed();
 };
 
 #endif

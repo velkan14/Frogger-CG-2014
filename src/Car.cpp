@@ -12,9 +12,12 @@ Car::~Car() {
 }
 
 
-double Car::checkPositionX(double x) {
-	if(x > 16) return -13;
-	return x;
+double Car::checkPositionX(double x, double pos, double speed) {
+	if (x > 16){
+		this->setSpeed(Vector3(speed, 0, 0));
+		return pos;
+	}
+		return x;
 }
 
 double Car::checkPositionY(double y){

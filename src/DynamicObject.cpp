@@ -8,8 +8,8 @@ DynamicObject::DynamicObject(double  x, double y, double z):GameObject(x,y,z){
 DynamicObject::~DynamicObject() {
 }
 
-void DynamicObject::update(double delta_t) {
-	double x = checkPositionX(getPosition()->getX() + getSpeed()->getX() * delta_t);
+void DynamicObject::update(double delta_t, double pos, double speed) {
+	double x = checkPositionX(getPosition()->getX() + getSpeed()->getX() * delta_t, pos, speed);
 	double y = checkPositionY(getPosition()->getY() + getSpeed()->getY() * delta_t);
 	double z = getPosition()->getZ() + getSpeed()->getZ() * delta_t;
 	xmax = x + _x;
@@ -18,6 +18,7 @@ void DynamicObject::update(double delta_t) {
 	ymin = y - _y;
 	setPosition(x,y,z);
 }
+
 	
 void DynamicObject::setSpeed(const Vector3 & speed) {
 	_speed->set(speed.getX(), speed.getY(), speed.getZ());
@@ -31,7 +32,7 @@ Vector3 * DynamicObject::getSpeed() {
 	return _speed;
 }
 
-double DynamicObject::checkPositionX(double x){
+double DynamicObject::checkPositionX(double x, double pos, double speed){
 	return x;
 }
 

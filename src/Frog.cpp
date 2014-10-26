@@ -8,7 +8,7 @@ Frog::Frog(double x, double y, double z):DynamicObject(x,y,z){
 	_x = .5;
 	_y = .5;
 	_car = 0;
-	_log = 0;
+	_log = -1;
 }
 
 Frog::~Frog() {
@@ -18,7 +18,7 @@ Frog::~Frog() {
 	//setPosition(getPosition() + getSpeed()*delta_t);
 }*/
 
-double Frog::checkPositionX(double x) {
+double Frog::checkPositionX(double x, double pos, double speed) {
 	if(x > 9.5) return 9.5;
 	else if (x <-9.5) return -9.5;
 	return x;

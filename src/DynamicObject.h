@@ -21,12 +21,13 @@ public:
 	DynamicObject(double  x, double y, double z);
 	~DynamicObject();
 
-	void update(double delta_t);
-	double virtual checkPositionX(double x);
+	void update(double delta_t, double pos, double speed);
+	double virtual checkPositionX(double x, double pos, double speed);
 	double virtual checkPositionY(double y);
 	void setSpeed(const Vector3 & speed);
 	void setSpeed(double x, double y, double z);
 
 	Vector3 * getSpeed();
+
 };
 #endif

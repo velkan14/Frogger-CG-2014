@@ -21,8 +21,11 @@ void TimberLog::draw() {
 	glPopMatrix();
 }
 
-double TimberLog::checkPositionX(double x) {
-	if(x > 16) return -13;
+double TimberLog::checkPositionX(double x, double pos, double speed) {
+	if (x > 16) {
+		this->setSpeed(Vector3(speed, 0, 0));
+		return pos;
+	}
 	return x;
 }
 
