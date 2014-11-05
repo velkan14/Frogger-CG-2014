@@ -13,9 +13,6 @@ void keyPressed(unsigned char key, int x, int y){
 	
 }
 void onTimer(int i){
-	if (i == 20){
-		std::cout << "DEU!!!" << std::endl;
-	}
 	gm->onTimer();
 	
 	glutTimerFunc(20, onTimer,10);
@@ -30,14 +27,15 @@ int main(int argc, char ** argv) {
 	gm->init();
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-	glutInitWindowSize(400, 400);
+	glutInitWindowSize(600, 600);
 	glutCreateWindow("Frogger");
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_NORMALIZE);
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
-	glutIdleFunc(display);
-	glutTimerFunc(20, onTimer,10);
-	//glutTimerFunc(50, onTimer, 20);
+	//glutIdleFunc(display);
+	glutTimerFunc(20, onTimer, 10);
 	glutIgnoreKeyRepeat(1);
 	glutKeyboardFunc(keyPressed);
 	glutKeyboardUpFunc(keyUp);

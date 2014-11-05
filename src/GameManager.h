@@ -3,6 +3,7 @@
 #include <vector>
 #include "OrthogonalCamera.h"
 #include "PerspectiveCamera.h"
+#include "Lights.h"
 #include "Frog.h"
 #include "Car.h"
 #include "River.h"
@@ -13,9 +14,6 @@
 #include "border.h"
 
 
-class Camera;
-class GameObject;
-
 class GameManager {
 
 
@@ -25,9 +23,10 @@ private:
 	std::vector<Car *> _cars;
 	std::vector<TimberLog *> _logs;
 
+	Frog * frogger;
+	Lights * gameLights;
 	int active_camera;
 	int _w, _h;
-	Frog * frogger;
 	double t_act, t_ant;
 	int t_speed, t_aux;
 	double minspeed, maxspeed;

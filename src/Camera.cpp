@@ -20,7 +20,5 @@ void Camera::computeVisualizationMatrix() {
 void Camera::reshape(GLsizei w, GLsizei h) {
 	_aspect = (float)w / h;
 	glViewport(0, 0, w, h);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
 	computeProjectionMatrix();
 }

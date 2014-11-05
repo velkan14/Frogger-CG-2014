@@ -14,7 +14,8 @@ OrthogonalCamera::~OrthogonalCamera() {
 
 
 void OrthogonalCamera::computeProjectionMatrix() {
-	//glOrtho(_left, _right, _bottom, _top, _near, _far);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
 	_ratio = (_right - _left) / (_top- _bottom);
 	if (_ratio < _aspect)
 	{
@@ -29,7 +30,7 @@ void OrthogonalCamera::computeProjectionMatrix() {
 }
 
 void OrthogonalCamera::computeVisualizationMatrix() {
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	gluLookAt(0, 0, 5, 0, 0, -1, 0, 1, -1);
-		/*_at.getX(), _at.getY(), _at.getZ(), 
-		_up.getX(), _up.getY(), _up.getZ() );*/
 }

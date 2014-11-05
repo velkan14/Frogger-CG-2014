@@ -1,16 +1,18 @@
 #include "GameManager.h"
 
+//void GameManagerTimer(int value){}
 
 GameManager::GameManager() {
 	_cameras = *new std::vector <Camera *>;
 	_game_objects = * new std::vector<GameObject *>;
 	_logs = * new std::vector<TimberLog *>;
 	_cars = * new std::vector<Car *>;
+	gameLights = new Lights();
 	active_camera = 0;
 	t_act=0; 
 	t_ant=0;
-	minspeed = 0.001;
-	maxspeed = 0.0015;
+	minspeed = 0.002;
+	maxspeed = 0.003;
 	t_speed = 0;
 	t_aux = 0;
 }
@@ -22,10 +24,7 @@ void GameManager::display() {
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	//Por cada objecto fazer draw!!! :D
 	
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
+	//glutTimerFunc(200, GameManagerTimer, 3);
 	(*_cameras[active_camera]).computeVisualizationMatrix();
 
 	for(GameObject * g : _game_objects){
@@ -34,7 +33,7 @@ void GameManager::display() {
 		g->draw();
 		glPopMatrix();
 	}
-	for(Car * car : _cars){
+	/*for(Car * car : _cars){
 		glPushMatrix();
 		glTranslated(car->getPosition()->getX(),car->getPosition()->getY(),car->getPosition()->getZ());
 		car->draw();
@@ -45,7 +44,7 @@ void GameManager::display() {
 		glTranslated(log->getPosition()->getX(),log->getPosition()->getY(),log->getPosition()->getZ());
 		log->draw();
 		glPopMatrix();
-	}
+	}*/
 
 	glFlush();
 }
@@ -58,54 +57,66 @@ void GameManager::reshape(GLsizei w, GLsizei h) {
 
 void GameManager::keyPressed(unsigned char key) {
 
-	if (key == '1'){
-		active_camera = 0;
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		(*_cameras[active_camera]).reshape(_w,_h);
-	}
-	else if (key == '2'){
-		active_camera = 1;
-			glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		(*_cameras[active_camera]).reshape(_w, _h);
-	}
-	else if (key == '3'){
-		active_camera = 2;
-			glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		(*_cameras[active_camera]).reshape(_w, _h);
-	}
+	//Up
+	if (key == 'q' || key == 'Q'){
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, 0.006, 0));
+	}//Down
 	else if(key == 'a' || key == 'A') {
 		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, -0.006, 0));
-	}//Down
+	}//Left
 	else if (key == 'o' || key == 'O') {
 		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(-0.007,0,0));
-	}//Esquerda
+	}//Right
 	else if (key == 'p' || key == 'P'){
 		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0.007,0,0));
-	} //Direita
-	else if (key == 'q' || key == 'Q'){
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0,0.006,0));
-	} //Cima
+	}//Day/Night Mode	
+	else if (key == 'n'){
+		if (glIsEnabled(GL_LIGHT0)){
+			glDisable(GL_LIGHT0);
+			display();
+		}
+		else{
+			glEnable(GL_LIGHT0);
+			gameLights->setDirectional();
+			display();
+		}
+	}//Camera 1
+	else if (key == '1'){
+		active_camera = 0;
+		(*_cameras[active_camera]).reshape(_w, _h);
+		(*_cameras[active_camera]).computeVisualizationMatrix();
+		gameLights->setDirectional();
+	}//Camera 2
+	else if (key == '2'){
+		active_camera = 1;
+		(*_cameras[active_camera]).reshape(_w, _h);
+		(*_cameras[active_camera]).computeVisualizationMatrix();
+		gameLights->setDirectional();
+	}//Camera 3
+	else if (key == '3'){
+		active_camera = 2;
+		(*_cameras[active_camera]).reshape(_w, _h);
+		(*_cameras[active_camera]).computeVisualizationMatrix();
+		gameLights->setDirectional();
+	}
 }
 
 
-void GameManager::keyUp (unsigned char key) {  
-	if (key == 'a' || key == 'A') {
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, 0.006, 0));
+void GameManager::keyUp (unsigned char key) {
+
+	//Up
+	if (key == 'q' || key == 'Q'){
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, -0.006, 0));
 	}//Down
+	else if (key == 'a' || key == 'A') {
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, 0.006, 0));
+	}//Left
 	else if (key == 'o' || key == 'O') {
 		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0.007,0,0));
-	}//Esquerda
+	}//Right
 	else if (key == 'p' || key == 'P'){
 		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(-0.007,0,0));
-	} //Direita
-	else if (key == 'q' || key == 'Q'){
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0,-0.006,0));
-	} //Cima
-
-
+	}
 }  
 
 
@@ -138,9 +149,9 @@ void GameManager::update(double delta_t) {
 		(*_cameras[active_camera]).update(*frogger->getPosition());
 	}
 
-	frogger->update(delta_t, randomPosition(), randomSpeed());
+	frogger->update(delta_t, 0, 0);
 
-	for(int i = 0; i < (int)_cars.size(); i++){
+	/*for(int i = 0; i < (int)_cars.size(); i++){
 		_cars[i]->update(delta_t, randomPosition(), randomSpeed());
 	}
 
@@ -168,7 +179,8 @@ void GameManager::update(double delta_t) {
 				frogger->setPosition(0, 0.5, 0.5);
 			}
 		}
-	}
+	}*/
+	display();
 }
 
 void GameManager::collisionCar(Car * car){
@@ -196,14 +208,14 @@ void GameManager::collisionTimberLog(TimberLog * _log, int i){
 
 void GameManager::init() {
 	_cameras.push_back(new OrthogonalCamera(-10, 10, 0, 14, -1, 10));
-	_cameras.push_back(new PerspectiveCamera(66, 1, 1, 20, 0, 1.5, 10));
-	_cameras.push_back(new PerspectiveCamera(60, 1, 1, 20, 0, 0, 3));
+	_cameras.push_back(new PerspectiveCamera(97, 1, 1, 20, 0, 1.5, 10));
+	_cameras.push_back(new PerspectiveCamera(70, 1, 1, 20, 0, 0, 3));
 	frogger = new Frog(0,0.5,0.5);
 	_game_objects.push_back(new Road(0,0,0));
 	_game_objects.push_back(new Roadside(0,0,0));
 	_game_objects.push_back(new River(0,0,0));
 	_game_objects.push_back(new Riverside(0,0,0));
-	_game_objects.push_back(new border(0, 0, 0));
+	//_game_objects.push_back(new border(0, 0, 0));
 	_game_objects.push_back(frogger);
 	
 
