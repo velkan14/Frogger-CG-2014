@@ -11,8 +11,8 @@ Roadside::~Roadside(){
 void Roadside::draw(){
 
 	GLfloat mat_ambient[] = { .6, .6, .6, 1 };
-	GLfloat mat_diffuse[] = { .15, .15, .15, .5 };
-	GLfloat mat_specular[] = { .2, .2, .2, 1 };
+	GLfloat mat_diffuse[] = { .2, .2, .2, .5 };
+	GLfloat mat_specular[] = { .25, .25, .25, 1 };
 	GLfloat mat_shininess[] = { 80 };
 
 	glColor3f(0.25f, 0.25f, 0.25f); //dark gray

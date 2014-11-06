@@ -9,7 +9,6 @@ Lights::Lights(){
 	this->setDirectional();
 	//this->setPointLights();
 	glEnable(GL_LIGHT0);
-	//glEnable(GL_LIGHT1);
 }
 
 void Lights::setDirectional(){
@@ -18,17 +17,23 @@ void Lights::setDirectional(){
 }
 
 void Lights::setPointLights(){
-	GLfloat l1_position[] = { -6, -6, 0, 3 };
+	GLfloat l1_position[] = { -8, .5, 6, 1 };
 	glLightfv(GL_LIGHT1, GL_POSITION, l1_position);
 
-	GLfloat l2_position[] = { 6, -6, 0, 3 };
+	GLfloat l2_position[] = { 8, .5, 6, 1 };
 	glLightfv(GL_LIGHT2, GL_POSITION, l2_position);
 
-	GLfloat l3_position[] = { 6, 6, 0, 3 };
+	GLfloat l3_position[] = { -8, 7, 6, 1 };
 	glLightfv(GL_LIGHT3, GL_POSITION, l3_position);
 
-	GLfloat l4_position[] = { -6, 6, 0, 3 };
+	GLfloat l4_position[] = { 8, 7, 6, 1 };
 	glLightfv(GL_LIGHT4, GL_POSITION, l4_position);
+
+	GLfloat l5_position[] = { -8, 13.5, 6, 1 };
+	glLightfv(GL_LIGHT5, GL_POSITION, l5_position);
+
+	GLfloat l6_position[] = { 8, 13.5, 6, 1 };
+	glLightfv(GL_LIGHT6, GL_POSITION, l6_position);
 }
 
 void Lights::setLighting(){
@@ -69,5 +74,17 @@ void Lights::setLighting(){
 	glLightfv(GL_LIGHT4, GL_DIFFUSE, l1_diffuse);
 	glLightfv(GL_LIGHT4, GL_SPECULAR, l1_specular);
 	glLightf(GL_LIGHT4, GL_CONSTANT_ATTENUATION, a);
-	glLightf(GL_LIGHT4, GL_LINEAR_ATTENUATION, b);*/
+	glLightf(GL_LIGHT4, GL_LINEAR_ATTENUATION, b);
+	
+	glLightfv(GL_LIGHT5, GL_AMBIENT, l1_ambient);
+	glLightfv(GL_LIGHT5, GL_DIFFUSE, l1_diffuse);
+	glLightfv(GL_LIGHT5, GL_SPECULAR, l1_specular);
+	glLightf(GL_LIGHT5, GL_CONSTANT_ATTENUATION, a);
+	glLightf(GL_LIGHT5, GL_LINEAR_ATTENUATION, b);
+	
+	glLightfv(GL_LIGHT6, GL_AMBIENT, l1_ambient);
+	glLightfv(GL_LIGHT6, GL_DIFFUSE, l1_diffuse);
+	glLightfv(GL_LIGHT6, GL_SPECULAR, l1_specular);
+	glLightf(GL_LIGHT6, GL_CONSTANT_ATTENUATION, a);
+	glLightf(GL_LIGHT6, GL_LINEAR_ATTENUATION, b);*/
 }

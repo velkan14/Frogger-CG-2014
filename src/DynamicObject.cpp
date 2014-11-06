@@ -11,7 +11,7 @@ DynamicObject::~DynamicObject() {
 void DynamicObject::update(double delta_t, double pos, double speed) {
 	double x = checkPositionX(getPosition()->getX() + getSpeed()->getX() * delta_t, pos, speed);
 	double y = checkPositionY(getPosition()->getY() + getSpeed()->getY() * delta_t);
-	double z = getPosition()->getZ() + getSpeed()->getZ() * delta_t;
+	double z = getPosition()->getZ();
 	xmax = x + _x;
 	xmin = x - _x;
 	ymax = y + _y;

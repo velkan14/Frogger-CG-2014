@@ -4,8 +4,8 @@ Car::Car() {
 }
 
 Car::Car(double x,double y,double z):DynamicObject(x,y,z){
-	_x = .9;
-	_y = .4;
+	_x = 1.1;
+	_y = 0.54;
 }
 
 Car::~Car() {
@@ -27,234 +27,158 @@ double Car::checkPositionY(double y){
 
 void Car::draw() {
 
+	computeHexagonVertices();
 	glPushMatrix();
-	glTranslatef(0, 0, 0.375);
-	
-	glColor3f(0., 0., 0.);
-	//carbody
+	glScaled(.25, .2, .25);
+
+	//Central Piece
 	glPushMatrix();
-	glScalef(.8, .8, .6);
-	glutSolidCube(1);
+	glTranslated(0, 0, 1.5);
+	glScaled(4, 2, .5);
+	drawCube();
+	glPopMatrix();
+	//Roof
+	glPushMatrix();
+	glTranslated(-1.5, 0, 2);
+	glScaled(2.5, 1, 1.4);
+	glRotated(90, 0, 0, 1);
+	drawTrapezoidalPrism();
+	glPopMatrix();
+	//Hood
+	glPushMatrix();
+	glTranslated(2.5, 0, 2);
+	glScaled(1.5, 1, .5);
+	glRotated(90, 0, 0, 1);
+	drawTrapezoidalPrism();
+	glPopMatrix();
+	//Under Piece
+	glPushMatrix();
+	glTranslated(0, 0, 1);
+	glScaled(4, 1, -0.2);
+	glRotated(90, 0, 0, 1);
+	drawTrapezoidalPrism();
+	glPopMatrix();
+	//Right Rear Wheel
+	glPushMatrix();
+	glTranslated(-2.7, -2, getHexagonY(1) + 0.05);
+	glRotated(90, 1, 0, 0);
+	glScaled(1, 1, .6);
+	drawHexagonPrism();
+	glPopMatrix();
+	//Left Rear Wheel
+	glPushMatrix();
+	glTranslated(-2.7, 2, getHexagonY(1) + 0.05);
+	glRotated(-90, 1, 0, 0);
+	glScaled(1, 1, .6);
+	drawHexagonPrism();
+	glPopMatrix();
+	//Right Front Wheel
+	glPushMatrix();
+	glTranslated(2.7, -2, getHexagonY(1) + 0.05);
+	glRotated(90, 1, 0, 0);
+	glScaled(1, 1, .5);
+	drawHexagonPrism();
+	glPopMatrix();
+	//Left Front Wheel
+	glPushMatrix();
+	glTranslated(2.7, 2, getHexagonY(1) + 0.05);
+	glRotated(-90, 1, 0, 0);
+	glScaled(1, 1, .5);
+	drawHexagonPrism();
+	glPopMatrix();
+	//Front Up Grille
+	glPushMatrix();
+	glTranslated(4, 0, 1.95);
+	glScaled(.05, 2, .05);
+	drawCube();
+	glPopMatrix();
+	//Front Down Grille
+	glPushMatrix();
+	glTranslated(4, 0, 1.1);
+	glScaled(.05, 2, .05);
+	drawCube();
+	glPopMatrix();
+	//Right Front Light
+	glPushMatrix();
+	glTranslated(4, -1.2, 1.55);
+	glRotated(90, 0, 1, 0);
+	glScaled(.4, .4, .1);
+	drawHexagonPrism();
+	glPopMatrix();
+	//Left Front Light
+	glPushMatrix();
+	glTranslated(4, 1.2, 1.55);
+	glRotated(90, 0, 1, 0);
+	glScaled(.4, .4, .1);
+	drawHexagonPrism();
+	glPopMatrix();
+	//Spare Wheel
+	glPushMatrix();
+	glTranslated(-4, 0, 1.9);
+	glRotated(90, 1, 0, 0);
+	glRotated(-90, 0, 1, 0);
+	glScaled(.8, .8, .5);
+	drawHexagonPrism();
 	glPopMatrix();
 
-	glPushMatrix();
-	glTranslatef(-.4, 0, -.15);
-	//hood + front wheels
-	glPushMatrix();
-	glTranslatef(-.25, 0, 0);
-	glScalef(.5, .6, .3);
-	glutSolidCube(1);
 	glPopMatrix();
-	glColor3f(0.25f, 0.25f, 0.25f);
-	glPushMatrix();
-	glTranslatef(-.25, .4, 0);
-	glRotatef(-45.0, 0.0, 1.0, 0.0);
-	glRotatef(-90.0, 1.0, 0.0, 0.0);
-	glutSolidTorus(.1, .13, 5, 5);
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(-.25, -0.4, 0);
-	glRotatef(-45.0, 0.0, 1.0, 0.0);
-	glRotatef(-90.0, 1.0, 0.0, 0.0);
-	glutSolidTorus(0.1, .13, 5, 5);
-	glPopMatrix();
-
-	glPopMatrix();
-
-	glColor3f(0., 0., 0.);
-	glPushMatrix();
-	glTranslatef(.4, 0, -.15);
-	//back + back wheels
-	glPushMatrix();
-	glTranslatef(.25, 0, 0);
-	glScalef(.5, .6, .3);
-	glutSolidCube(1);
-	glPopMatrix();
-	glColor3f(0.25f, 0.25f, 0.25f);
-	glPushMatrix();
-	glTranslatef(.25, .4, 0);
-	glRotatef(-45.0, 0.0, 1.0, 0.0);
-	glRotatef(-90.0, 1.0, 0.0, 0.0);
-	glutSolidTorus(.1, .13, 5, 5);
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(.25, -.4, 0);
-	glRotatef(-45.0, 0.0, 1.0, 0.0);
-	glRotatef(-90.0, 1.0, 0.0, 0.0);
-	glutSolidTorus(.1, .13, 5, 5);
-	glPopMatrix();
-
-	glPopMatrix();
-
-	glPopMatrix();
-
 }
 
-//void Car::draw()
-//{
-//	glPushMatrix();
-//	glTranslatef(0, 0, 1);
-//	glScalef(3, 3, 3);
-//	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//	
-//	//Sides
-//	glColor3f(1.0f, 0.0f, 0.0f);
-//	glBegin(GL_QUADS);			
-//	glNormal3f(0.0, -1, 0.0);	
-//	glVertex3f(.3, -.15, 0);
-//	glVertex3f(-.2, -.15, 0);
-//	glVertex3f(-.2, -.15, -.1);
-//	glVertex3f(.3, -.15, -.1);
-//	glEnd();
-//
-//	glBegin(GL_QUADS);
-//	glNormal3f(0.0, 1.0, 0.0);
-//	glVertex3f(.3, .15, 0);
-//	glVertex3f(-.2, .15, 0);
-//	glVertex3f(-.2, .15, -.1);
-//	glVertex3f(.3, .15, -.1);
-//	glEnd();
-//
-//	glColor3f(1.0f, 1.0f, 0.0f);
-//	glBegin(GL_QUADS);
-//	glNormal3f(0.0, 1.0, 0.0);
-//	glVertex3f(.1, .15, 0.05);
-//	glVertex3f(-.2, .15, 0.05);
-//	glVertex3f(-.2, .15, 0.0);
-//	glVertex3f(.1, .15, 0.0);
-//	glEnd();
-//
-//	glBegin(GL_QUADS);
-//	glNormal3f(0.0, -1.0, 0.0);
-//	glVertex3f(.1, -.15, 0.05);
-//	glVertex3f(-.2, -.15, 0.05);
-//	glVertex3f(-.2, -.15, 0.0);
-//	glVertex3f(.1, -.15,0.0);
-//	glEnd();
-//	
-//	
-//	//Capo
-//	glColor3f(1.0f, 1.0f, 0.0f);
-//	glBegin(GL_QUADS);
-//	glNormal3f(0.0, -1.0, 0.0);
-//	glVertex3f(.3, -.05, 0.0);
-//	glVertex3f(.3, .05, 0.0);
-//	glVertex3f(.1, .15, 0.05);
-//	glVertex3f(.1, -.15, 0.05);
-//	glEnd();
-//
-//	glBegin(GL_QUADS);
-//	glNormal3f(0.0, -1.0, 0.0);
-//	glVertex3f(.3, 0.15, 0.0);
-//	glVertex3f(.3, -0.15, 0.0);
-//	glVertex3f(.3, -.15, -0.1);
-//	glVertex3f(.3, .15, -0.1);
-//	glEnd();
-//	glColor3f(1.0f, 0.8f, 0.8f);
-//	glBegin(GL_TRIANGLES);
-//	glNormal3f(0.0, -1.0, 0.0);
-//	glVertex3f(.1, -0.15, 0.05);
-//	glVertex3f(.1, -0.15, 0.0);
-//	glVertex3f(.3, -.05, 0.0);
-//	glEnd();
-//	glBegin(GL_TRIANGLES);
-//	glNormal3f(0.0, -1.0, 0.0);
-//	glVertex3f(.1, 0.15, 0.05);
-//	glVertex3f(.1, 0.15, 0.0);
-//	glVertex3f(.3, .05, 0.0);
-//	glEnd();
-//	glColor3f(0.3f, 0.8f, 0.8f);
-//	glBegin(GL_TRIANGLES);
-//	glNormal3f(0.0, -1.0, 0.0);
-//	glVertex3f(.1, -0.15, 0.0);
-//	glVertex3f(.3, -0.15, 0.0);
-//	glVertex3f(.3, -.05, 0.0);
-//	glEnd();
-//	glBegin(GL_TRIANGLES);
-//	glNormal3f(0.0, -1.0, 0.0);
-//	glVertex3f(.1, 0.15, 0.0);
-//	glVertex3f(.3, 0.15, 0.0);
-//	glVertex3f(.3, .05, 0.0);
-//	glEnd();
-//	
-//	//Vidro Front
-//	glColor3f(0.0f, 0.0f, .5f);
-//	glBegin(GL_QUADS);
-//	glNormal3f(0.0, -1.0, 0.0);
-//	glVertex3f(.1, .1, 0.15);
-//	glVertex3f(.1, -.1, 0.15);
-//	glVertex3f(.1, -.15, 0.05);
-//	glVertex3f(.1, .15, 0.05);
-//	glEnd();
-//
-//	//Copa Front
-//	glColor3f(0.0f, 0.0f, .5f);
-//	glBegin(GL_TRIANGLES);
-//	glNormal3f(0.0, -1.0, 0.0);
-//	glVertex3f(.1, -.1, 0.15);
-//	glVertex3f(.1, 0.1, 0.15);
-//	glVertex3f(.0, 0, 0.2);
-//	glEnd();
-//
-//	//Copa Back
-//	glColor3f(-1.0f, 0.0f, 0.0f);
-//	glBegin(GL_QUADS);
-//	glNormal3f(0.0, -1.0, 0.0);
-//	glVertex3f(-.2, .15, -0.1);
-//	glVertex3f(-.2, .15, 0.05);
-//	glVertex3f(-.2, -.15, 0.05);
-//	glVertex3f(-.2, -.15, -0.1);
-//	glEnd();
-//	glBegin(GL_QUADS);
-//	glNormal3f(0.0, -1.0, 0.0);//Normal não feita
-//	glVertex3f(-.2, .15, 0.05);
-//	glVertex3f(-.2, .1, 0.1);
-//	glVertex3f(-.2, -.1, 0.1);
-//	glVertex3f(-.2, -.15, 0.05);
-//	glEnd();
-//
-//	glBegin(GL_TRIANGLES);
-//	glNormal3f(0.0, -1.0, 0.0);//Normal não feita
-//	glVertex3f(-.2, .1, 0.1);
-//	glVertex3f(-.1, 0, 0.2);
-//	glVertex3f(-.2, -.1, 0.1);
-//
-//	glEnd();
-//	//Copa
-//	glColor3f(1.0f, 0.0f, 1.0f);
-//	glBegin(GL_QUADS);
-//	glNormal3f(0.0, -1.0, 0.0);//Normal não feita
-//	glVertex3f(.1, -.1, 0.15);
-//	glVertex3f(-.2, -.1, 0.1);
-//	glVertex3f(-.2, -.15, 0.05);
-//	glVertex3f(.1, -.15, 0.05);
-//	glEnd();
-//
-//	glBegin(GL_QUADS);
-//	glNormal3f(0.0, -1.0, 0.0); //Normal não feita
-//	glVertex3f(.1, .1, 0.15);
-//	glVertex3f(-.2, .1, 0.1);
-//	glVertex3f(-.2, .15, 0.05);
-//	glVertex3f(.1, .15, 0.05);
-//	glEnd();
-//
-//	glColor3f(1.0f, 0.5f, 1.0f);
-//	glBegin(GL_QUADS);
-//	glNormal3f(0.0, -1.0, 0.0);//Normal não feita
-//	glVertex3f(0, 0, 0.2);
-//	glVertex3f(-0.1, 0, 0.2);
-//	glVertex3f(-.2, -.1, 0.1);
-//	glVertex3f(.1, -.1, 0.15);
-//	glEnd();
-//	glBegin(GL_QUADS);
-//	glNormal3f(0.0, -1.0, 0.0);//Normal não feita
-//	glVertex3f(0, 0, 0.2);
-//	glVertex3f(-0.1, 0, 0.2);
-//	glVertex3f(-.2, .1, 0.1);
-//	glVertex3f(.1, .1, 0.15);
-//	glEnd();
-//
-//
-//	glutSwapBuffers();
-//	glPopMatrix();
-//}
+	//glPushMatrix();
+	//glTranslatef(0, 0, 0.375);
+	//
+	//glColor3f(0., 0., 0.);
+	////carbody
+	//glPushMatrix();
+	//glScalef(.8, .8, .6);
+	//glutSolidCube(1);
+	//glPopMatrix();
+
+	//glPushMatrix();
+	//glTranslatef(-.4, 0, -.15);
+	////hood + front wheels
+	//glPushMatrix();
+	//glTranslatef(-.25, 0, 0);
+	//glScalef(.5, .6, .3);
+	//glutSolidCube(1);
+	//glPopMatrix();
+	//glColor3f(0.25f, 0.25f, 0.25f);
+	//glPushMatrix();
+	//glTranslatef(-.25, .4, 0);
+	//glRotatef(-45.0, 0.0, 1.0, 0.0);
+	//glRotatef(-90.0, 1.0, 0.0, 0.0);
+	//glutSolidTorus(.1, .13, 5, 5);
+	//glPopMatrix();
+	//glPushMatrix();
+	//glTranslatef(-.25, -0.4, 0);
+	//glRotatef(-45.0, 0.0, 1.0, 0.0);
+	//glRotatef(-90.0, 1.0, 0.0, 0.0);
+	//glutSolidTorus(0.1, .13, 5, 5);
+	//glPopMatrix();
+
+	//glPopMatrix();
+
+	//glColor3f(0., 0., 0.);
+	//glPushMatrix();
+	//glTranslatef(.4, 0, -.15);
+	////back + back wheels
+	//glPushMatrix();
+	//glTranslatef(.25, 0, 0);
+	//glScalef(.5, .6, .3);
+	//glutSolidCube(1);
+	//glPopMatrix();
+	//glColor3f(0.25f, 0.25f, 0.25f);
+	//glPushMatrix();
+	//glTranslatef(.25, .4, 0);
+	//glRotatef(-45.0, 0.0, 1.0, 0.0);
+	//glRotatef(-90.0, 1.0, 0.0, 0.0);
+	//glutSolidTorus(.1, .13, 5, 5);
+	//glPopMatrix();
+	//glPushMatrix();
+	//glTranslatef(.25, -.4, 0);
+	//glRotatef(-45.0, 0.0, 1.0, 0.0);
+	//glRotatef(-90.0, 1.0, 0.0, 0.0);
+	//glutSolidTorus(.1, .13, 5, 5);
+	//glPopMatrix();
+	//glPopMatrix();
+	//glPopMatrix();

@@ -33,7 +33,7 @@ void GameManager::display() {
 		g->draw();
 		glPopMatrix();
 	}
-	/*for(Car * car : _cars){
+	for(Car * car : _cars){
 		glPushMatrix();
 		glTranslated(car->getPosition()->getX(),car->getPosition()->getY(),car->getPosition()->getZ());
 		car->draw();
@@ -44,7 +44,7 @@ void GameManager::display() {
 		glTranslated(log->getPosition()->getX(),log->getPosition()->getY(),log->getPosition()->getZ());
 		log->draw();
 		glPopMatrix();
-	}*/
+	}
 
 	glFlush();
 }
@@ -59,18 +59,28 @@ void GameManager::keyPressed(unsigned char key) {
 
 	//Up
 	if (key == 'q' || key == 'Q'){
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, 0.006, 0));
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, 0.004, 0));
 	}//Down
 	else if(key == 'a' || key == 'A') {
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, -0.006, 0));
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, -0.004, 0));
 	}//Left
 	else if (key == 'o' || key == 'O') {
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(-0.007,0,0));
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(-0.005,0,0));
 	}//Right
 	else if (key == 'p' || key == 'P'){
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0.007,0,0));
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0.005,0,0));
+	}//Lighting ON/OFF
+	else if (key == 'l' || key == 'L'){
+		if (glIsEnabled(GL_LIGHTING)){
+			glDisable(GL_LIGHTING);
+			display();
+		}
+		else{
+			glEnable(GL_LIGHTING);
+			display();
+		}
 	}//Day/Night Mode	
-	else if (key == 'n'){
+	else if (key == 'n' || key == 'N'){
 		if (glIsEnabled(GL_LIGHT0)){
 			glDisable(GL_LIGHT0);
 			display();
@@ -106,16 +116,16 @@ void GameManager::keyUp (unsigned char key) {
 
 	//Up
 	if (key == 'q' || key == 'Q'){
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, -0.006, 0));
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, -0.004, 0));
 	}//Down
 	else if (key == 'a' || key == 'A') {
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, 0.006, 0));
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, 0.004, 0));
 	}//Left
 	else if (key == 'o' || key == 'O') {
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0.007,0,0));
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0.005,0,0));
 	}//Right
 	else if (key == 'p' || key == 'P'){
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(-0.007,0,0));
+		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(-0.005,0,0));
 	}
 }  
 
@@ -151,7 +161,7 @@ void GameManager::update(double delta_t) {
 
 	frogger->update(delta_t, 0, 0);
 
-	/*for(int i = 0; i < (int)_cars.size(); i++){
+	for(int i = 0; i < (int)_cars.size(); i++){
 		_cars[i]->update(delta_t, randomPosition(), randomSpeed());
 	}
 
@@ -176,10 +186,10 @@ void GameManager::update(double delta_t) {
 			}
 			frogger->_log = -1;
 			if ((frogger->ymin > 7.7) && (frogger->ymax < 13.5)){
-				frogger->setPosition(0, 0.5, 0.5);
+				frogger->setPosition(0, 0.5, 0.075);
 			}
 		}
-	}*/
+	}
 	display();
 }
 
@@ -208,9 +218,9 @@ void GameManager::collisionTimberLog(TimberLog * _log, int i){
 
 void GameManager::init() {
 	_cameras.push_back(new OrthogonalCamera(-10, 10, 0, 14, -1, 10));
-	_cameras.push_back(new PerspectiveCamera(97, 1, 1, 20, 0, 1.5, 10));
-	_cameras.push_back(new PerspectiveCamera(70, 1, 1, 20, 0, 0, 3));
-	frogger = new Frog(0,0.5,0.5);
+	_cameras.push_back(new PerspectiveCamera(64, 1, 1, 20, 0, 1.5, 10));
+	_cameras.push_back(new PerspectiveCamera(75, 1, 1, 20, 0, 0, 3));
+	frogger = new Frog(0, .5, .075);
 	_game_objects.push_back(new Road(0,0,0));
 	_game_objects.push_back(new Roadside(0,0,0));
 	_game_objects.push_back(new River(0,0,0));
@@ -219,29 +229,29 @@ void GameManager::init() {
 	_game_objects.push_back(frogger);
 	
 
-	TimberLog * log = new TimberLog(randomPosition(), 8.6, 0.5);
+	TimberLog * log = new TimberLog(randomPosition(), 8.6, 0);
 	log->setSpeed(*(log->getSpeed()) + Vector3(randomSpeed(),0,0));
 	_logs.push_back(log);
-	log = new TimberLog(randomPosition(), 9.85, 0.5);
+	log = new TimberLog(randomPosition(), 9.85, 0);
 	log->setSpeed(*(log->getSpeed()) + Vector3(randomSpeed(), 0, 0));
 	_logs.push_back(log);
-	log = new TimberLog(randomPosition(), 11.1, 0.5);
+	log = new TimberLog(randomPosition(), 11.1, 0);
 	log->setSpeed(*(log->getSpeed()) + Vector3(randomSpeed(), 0, 0));
 	_logs.push_back(log);
-	log = new TimberLog(randomPosition(), 12.35, 0.5);
+	log = new TimberLog(randomPosition(), 12.35, 0);
 	log->setSpeed(*(log->getSpeed()) + Vector3(randomSpeed(), 0, 0));
 	_logs.push_back(log);
 
-	Car * car = new Car(randomPosition(),1.55,0.5);
+	Car * car = new Car(randomPosition(), 1.67, .01);
 	car->setSpeed(*(car->getSpeed()) + Vector3(randomSpeed(), 0, 0));
 	_cars.push_back(car);
-	car = new Car(randomPosition(), 2.8, 0.5);
+	car = new Car(randomPosition(), 2.92, .01);
 	car->setSpeed(*(car->getSpeed()) + Vector3(randomSpeed(), 0, 0));
 	_cars.push_back(car);
-	car = new Car(randomPosition(), 4.05, 0.5);
+	car = new Car(randomPosition(), 4.17, .01);
 	car->setSpeed(*(car->getSpeed()) + Vector3(randomSpeed(), 0, 0));
 	_cars.push_back(car);
-	car = new Car(randomPosition(), 5.3, 0.5);
+	car = new Car(randomPosition(), 5.42, .01);
 	car->setSpeed(*(car->getSpeed()) + Vector3(randomSpeed(), 0, 0));
 	_cars.push_back(car);
 }
