@@ -15,7 +15,7 @@ void keyPressed(unsigned char key, int x, int y){
 void onTimer(int i){
 	gm->onTimer();
 	
-	glutTimerFunc(10, onTimer,10);
+	glutTimerFunc(20, onTimer,10);
 }
 
 void keyUp(unsigned char key, int x, int y){

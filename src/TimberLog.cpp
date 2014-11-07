@@ -5,7 +5,7 @@ TimberLog::TimberLog() {
 
 TimberLog::TimberLog(double x, double y, double z):DynamicObject(x,y,z){
 	_x = 1.5;
-	_y = .5;
+	_y = .55;
 	_log=0;
 }
 
@@ -26,11 +26,13 @@ void TimberLog::draw() {
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 
 	glPushMatrix();
-	glTranslated(-1.5, 0, -0.43);
-	glScaled(.5, .55, .5);
+	glTranslated(-1, 0, -0.43);
 	for (int x = 0; x < 3; x++){
+		glPushMatrix();
+		glScaled(.5, .55, .5);
 		drawCube();
-		glTranslated(2, 0, 0);
+		glPopMatrix();
+		glTranslated(1, 0, 0);
 	}
 	glPopMatrix();
 
