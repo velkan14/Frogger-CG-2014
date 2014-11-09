@@ -24,6 +24,19 @@ void GameManager::display() {
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	//Por cada objecto fazer draw!!! :D
 	
+	GLdouble eqn[4] = { 1.0, 0.0, 0.0, 0.0 };
+	GLdouble eqn2[4] = { -1.0, 0.0, 0.0, 0.0 };
+	glPushMatrix();
+	glTranslatef(-10, 0, 0);
+	glClipPlane(GL_CLIP_PLANE0, eqn); // x > -10
+	glEnable(GL_CLIP_PLANE0);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(10, 0, 0);
+	glClipPlane(GL_CLIP_PLANE1, eqn2); // x < 10
+	glEnable(GL_CLIP_PLANE1);
+	glPopMatrix();
+
 	//glutTimerFunc(200, GameManagerTimer, 3);
 	(*_cameras[active_camera]).computeVisualizationMatrix();
 
@@ -88,6 +101,29 @@ void GameManager::keyPressed(unsigned char key) {
 		else{
 			glEnable(GL_LIGHT0);
 			gameLights->setDirectional();
+			display();
+		}
+	}//Spotlights
+	else if (key == 'c' || key == 'C'){
+		if (glIsEnabled(GL_LIGHT1)){
+			glDisable(GL_LIGHT1);
+			glDisable(GL_LIGHT2);
+			glDisable(GL_LIGHT3);
+			glDisable(GL_LIGHT4);
+			glDisable(GL_LIGHT5);
+			glDisable(GL_LIGHT6);
+			display();
+		}
+		else{
+			glEnable(GL_LIGHT1);
+			glEnable(GL_LIGHT2);
+			glEnable(GL_LIGHT3);
+			glEnable(GL_LIGHT4);
+			glEnable(GL_LIGHT5);
+			glEnable(GL_LIGHT6);
+			gameLights->setDirectional();
+			gameLights->setPointLights();
+			gameLights->setLighting();
 			display();
 		}
 	}//Camera 1
@@ -159,6 +195,12 @@ void GameManager::update(double delta_t) {
 		(*_cameras[active_camera]).update(*frogger->getPosition());
 	}
 
+	if (glIsEnabled(GL_LIGHT1)){
+		gameLights->setDirectional();
+		gameLights->setPointLights();
+		gameLights->setLighting();
+	}
+
 	frogger->update(delta_t, 0, 0);
 
 	for(int i = 0; i < (int)_cars.size(); i++){
@@ -218,8 +260,8 @@ void GameManager::collisionTimberLog(TimberLog * _log, int i){
 
 void GameManager::init() {
 	_cameras.push_back(new OrthogonalCamera(-10, 10, 0, 14, -1, 10));
-	_cameras.push_back(new PerspectiveCamera(64, 1, 1, 20, 0, 1.5, 10));
-	_cameras.push_back(new PerspectiveCamera(75, 1, 1, 20, 0, 0, 3));
+	_cameras.push_back(new PerspectiveCamera(90, 1, 1, 20, 0, 1.5, 10));
+	_cameras.push_back(new PerspectiveCamera(90, 1, 1, 20, 0, 0, 3));
 	frogger = new Frog(0, .5, .075);
 	_game_objects.push_back(new Road(0,0,0));
 	_game_objects.push_back(new Roadside(0,0,0));
