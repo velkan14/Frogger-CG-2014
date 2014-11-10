@@ -39,7 +39,7 @@ int main(int argc, char ** argv) {
 	glutIgnoreKeyRepeat(1);
 	glutKeyboardFunc(keyPressed);
 	glutKeyboardUpFunc(keyUp);
-	glClearColor(1., 1., 1., 0.);
+	glClearColor(0., 0., 0., 0.);
 	glutMainLoop();
 	return 0;
 }

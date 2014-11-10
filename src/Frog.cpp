@@ -9,6 +9,7 @@ Frog::Frog(double x, double y, double z):DynamicObject(x,y,z){
 	_y = .45;
 	_car = 0;
 	_log = -1;
+	_rot = 0;
 }
 
 Frog::~Frog() {
@@ -24,6 +25,14 @@ double Frog::checkPositionY(double y){
 	if(y > 13.55) return 13.55;
 	else if (y<0.45) return 0.45;
 	return y;
+}
+
+void Frog::setRot(int rot){
+		_rot = rot;
+}
+
+int Frog::getRot(){
+		return _rot;
 }
 
 void Frog::draw() {
@@ -43,6 +52,9 @@ void Frog::draw() {
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular1);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess1);
 
+
+	glPushMatrix();
+	glRotatef(_rot, 0,0,1);
 	glPushMatrix();
 	glScaled(.9, .9, .7);
 	glPushMatrix();
@@ -158,5 +170,6 @@ void Frog::draw() {
 		glPopMatrix();
 	glPopMatrix();
 
+	glPopMatrix();
 	glPopMatrix();
 }

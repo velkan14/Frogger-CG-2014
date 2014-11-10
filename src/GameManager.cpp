@@ -72,15 +72,19 @@ void GameManager::keyPressed(unsigned char key) {
 
 	//Up
 	if (key == 'q' || key == 'Q'){
+		frogger->setRot(0);
 		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, 0.004, 0));
 	}//Down
 	else if(key == 'a' || key == 'A') {
+		frogger->setRot(180);
 		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, -0.004, 0));
 	}//Left
 	else if (key == 'o' || key == 'O') {
+		frogger->setRot(90);
 		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(-0.005,0,0));
 	}//Right
 	else if (key == 'p' || key == 'P'){
+		frogger->setRot(-90);
 		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0.005,0,0));
 	}//Lighting ON/OFF
 	else if (key == 'l' || key == 'L'){

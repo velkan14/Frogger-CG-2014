@@ -31,7 +31,7 @@ void Lights::setPointLights(){
 	GLfloat l1_diffuse[] = { 1, 1, 1, 1 };
 	GLfloat l1_specular[] = { 1, 1, 1, 1 };
 	GLfloat a = 1, b = 0.1, c = 0.01;
-	GLfloat spot_cutoff = 40, spot_exponent = 2;
+	GLfloat spot_cutoff = 25, spot_exponent = 50;
 
 	GLfloat spot_direction[] = { 0.0, 0.0, -1.0 };
 	GLfloat l1_position[] = { -5.5, .5, 8, 1 };
@@ -107,4 +107,30 @@ void Lights::setPointLights(){
 	glLightf(GL_LIGHT6, GL_SPOT_EXPONENT, spot_exponent);
 	glLightfv(GL_LIGHT6, GL_POSITION, l6_position);
 	glLightfv(GL_LIGHT6, GL_SPOT_DIRECTION, spot_direction);
+}
+
+void Lights::setHeadlight(){
+
+	GLfloat l7_position[] = { -5.5, .5, 8, 1 };
+	GLfloat l1_ambient[] = { .2, .2, .1, 1 };
+	GLfloat l1_diffuse[] = { 1, 1, 1, 1 };
+	GLfloat l1_specular[] = { 1, 1, 1, 1 };
+	GLfloat a = 1, b = 0.1, c = 0.01;
+	GLfloat spot_cutoff = 25, spot_exponent = 2;
+	GLfloat spot_direction[] = { 0.0, 0.0, -1.0 };
+
+
+	glLightfv(GL_LIGHT7, GL_AMBIENT, l1_ambient);
+	glLightfv(GL_LIGHT7, GL_DIFFUSE, l1_diffuse);
+	glLightfv(GL_LIGHT7, GL_SPECULAR, l1_specular);
+	glLightf(GL_LIGHT7, GL_CONSTANT_ATTENUATION, a);
+	glLightf(GL_LIGHT7, GL_LINEAR_ATTENUATION, b);
+	glLightf(GL_LIGHT7, GL_QUADRATIC_ATTENUATION, c);
+	glLightf(GL_LIGHT7, GL_SPOT_CUTOFF, spot_cutoff);
+	glLightf(GL_LIGHT7, GL_SPOT_EXPONENT, spot_exponent);
+	glLightfv(GL_LIGHT7, GL_POSITION, l7_position);
+	glLightfv(GL_LIGHT7, GL_SPOT_DIRECTION, spot_direction);
+
+
+
 }

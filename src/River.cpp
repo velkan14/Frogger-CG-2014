@@ -10,7 +10,7 @@ River::~River(){
 
 void River::draw(){
 
-	GLfloat mat_ambient[] = { .2, .6, 1, 1 };
+	GLfloat mat_ambient[] = { .1, .3, .5, 1 };
 	GLfloat mat_diffuse[] = { .4, .5, 1, 1 };
 	GLfloat mat_specular[] = { .1, .2, .4, 1 };
 	GLfloat mat_shininess[] = { 100 };
@@ -22,13 +22,18 @@ void River::draw(){
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 
 	glPushMatrix();
+	
 	glTranslated(-10, 8, 0);
-	for (int x = 0; x < 20; x++){
-		for (int y = 0; y < 5; y++){
+	
+	for (int x = 0; x < 40; x++){
+		for (int y = 0; y < 10; y++){
+			glPushMatrix();
+			glScalef(.5,.5,1);
 			drawSquare();
-			glTranslated(0, 1, 0);
+			glPopMatrix();
+			glTranslated(0, 0.5, 0);
 		}
-		glTranslated(1, -5, 0);
+		glTranslated(0.5, -5, 0);
 	}
 	glPopMatrix();
 

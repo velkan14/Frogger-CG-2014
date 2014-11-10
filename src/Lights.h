@@ -11,4 +11,5 @@ public:
 
 	void setDirectional();
 	void setPointLights();
+	void setHeadlight();
 };

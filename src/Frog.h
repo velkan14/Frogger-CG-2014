@@ -6,6 +6,7 @@
 class Frog : public DynamicObject {
 
 public:
+	int _rot;
 	int _car;
 	int _log;
 	Frog();
@@ -14,6 +15,8 @@ public:
 	void draw();
 	double checkPositionX(double x, double pos, double speed);
 	double checkPositionY(double y);
+	void setRot(int rot);
+	int getRot();
 };
 
 #endif
