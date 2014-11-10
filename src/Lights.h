@@ -9,7 +9,6 @@ public:
 	Lights();
 	~Lights();
 
-	void setLighting();
 	void setDirectional();
 	void setPointLights();
 };

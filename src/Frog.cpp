@@ -5,7 +5,7 @@ Frog::Frog() {
 }
 
 Frog::Frog(double x, double y, double z):DynamicObject(x,y,z){
-	_x = .45;
+	_x = .55;
 	_y = .45;
 	_car = 0;
 	_log = -1;
@@ -15,8 +15,8 @@ Frog::~Frog() {
 }
 
 double Frog::checkPositionX(double x, double pos, double speed) {
-	if(x > 9.55) return 9.55;
-	else if (x <-9.55) return -9.55;
+	if(x > 9.45) return 9.45;
+	else if (x <-9.45) return -9.45;
 	return x;
 }
 
@@ -33,9 +33,9 @@ void Frog::draw() {
 	GLfloat mat_specular1[] = { .7, 0, 0, 1 };
 	GLfloat mat_shininess1[] = { 80 };
 	GLfloat mat_ambient2[] = { .2, 1, .1, 1 };
-	GLfloat mat_diffuse2[] = { .1, .7, .1, 1 };
-	GLfloat mat_specular2[] = { 0, .2, 0, 1 };
-	GLfloat mat_shininess2[] = { 5 };
+	GLfloat mat_diffuse2[] = { .1, .8, .1, 1 };
+	GLfloat mat_specular2[] = { 0, .5, 0, 1 };
+	GLfloat mat_shininess2[] = { 100 };
 
 
 	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient1);

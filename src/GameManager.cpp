@@ -121,9 +121,7 @@ void GameManager::keyPressed(unsigned char key) {
 			glEnable(GL_LIGHT4);
 			glEnable(GL_LIGHT5);
 			glEnable(GL_LIGHT6);
-			gameLights->setDirectional();
 			gameLights->setPointLights();
-			gameLights->setLighting();
 			display();
 		}
 	}//Camera 1
@@ -132,18 +130,21 @@ void GameManager::keyPressed(unsigned char key) {
 		(*_cameras[active_camera]).reshape(_w, _h);
 		(*_cameras[active_camera]).computeVisualizationMatrix();
 		gameLights->setDirectional();
+		gameLights->setPointLights();
 	}//Camera 2
 	else if (key == '2'){
 		active_camera = 1;
 		(*_cameras[active_camera]).reshape(_w, _h);
 		(*_cameras[active_camera]).computeVisualizationMatrix();
 		gameLights->setDirectional();
+		gameLights->setPointLights();
 	}//Camera 3
 	else if (key == '3'){
 		active_camera = 2;
 		(*_cameras[active_camera]).reshape(_w, _h);
 		(*_cameras[active_camera]).computeVisualizationMatrix();
 		gameLights->setDirectional();
+		gameLights->setPointLights();
 	}
 }
 
@@ -193,12 +194,8 @@ double GameManager::randomSpeed(){
 void GameManager::update(double delta_t) {
 	if (active_camera == 2){
 		(*_cameras[active_camera]).update(*frogger->getPosition());
-	}
-
-	if (glIsEnabled(GL_LIGHT1)){
-		gameLights->setDirectional();
-		gameLights->setPointLights();
-		gameLights->setLighting();
+		if (glIsEnabled(GL_LIGHT1))
+			gameLights->setPointLights();
 	}
 
 	frogger->update(delta_t, 0, 0);
@@ -228,7 +225,7 @@ void GameManager::update(double delta_t) {
 			}
 			frogger->_log = -1;
 			if ((frogger->ymin > 7.7) && (frogger->ymax < 13.5)){
-				frogger->setPosition(0, 0.5, 0.075);
+				frogger->setPosition(0, 0.45, 0.075);
 			}
 		}
 	}
@@ -237,7 +234,7 @@ void GameManager::update(double delta_t) {
 
 void GameManager::collisionCar(Car * car){
 		if((frogger->xmax > car->xmin) && (frogger->xmin < car->xmax) && (frogger->ymax > car->ymin) && (frogger->ymin < car->ymax)){
-			frogger->setPosition(0,0.5,0.5);
+			frogger->setPosition(0,0.45,0.075);
 		}
 }
 
@@ -262,12 +259,11 @@ void GameManager::init() {
 	_cameras.push_back(new OrthogonalCamera(-10, 10, 0, 14, -1, 10));
 	_cameras.push_back(new PerspectiveCamera(90, 1, 1, 20, 0, 1.5, 10));
 	_cameras.push_back(new PerspectiveCamera(90, 1, 1, 20, 0, 0, 3));
-	frogger = new Frog(0, .5, .075);
+	frogger = new Frog(0, .45, .075);
 	_game_objects.push_back(new Road(0,0,0));
 	_game_objects.push_back(new Roadside(0,0,0));
 	_game_objects.push_back(new River(0,0,0));
 	_game_objects.push_back(new Riverside(0,0,0));
-	//_game_objects.push_back(new border(0, 0, 0));
 	_game_objects.push_back(frogger);
 	
 

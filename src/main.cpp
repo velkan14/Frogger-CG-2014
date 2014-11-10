@@ -27,7 +27,7 @@ int main(int argc, char ** argv) {
 	gm->init();
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-	glutInitWindowSize(600, 600);
+	glutInitWindowSize(1024, 768);
 	glutCreateWindow("Frogger");
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
