@@ -1,4 +1,6 @@
-#include <GL/glut.h>
+#ifndef LIGHTS_H
+#define LIGHTS_H
+#include "Frog.h"
 
 class Lights {
 
@@ -11,5 +13,7 @@ public:
 
 	void setDirectional();
 	void setPointLights();
-	void setHeadlight();
+	void setHeadlight(Frog frogger);
 };
+
+#endif

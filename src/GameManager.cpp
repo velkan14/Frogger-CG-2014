@@ -15,6 +15,8 @@ GameManager::GameManager() {
 	maxspeed = 0.003;
 	t_speed = 0;
 	t_aux = 0;
+	pausa = true;
+	
 }
 
 GameManager::~GameManager() {
@@ -69,7 +71,14 @@ void GameManager::reshape(GLsizei w, GLsizei h) {
 }
 
 void GameManager::keyPressed(unsigned char key) {
-
+	if (key == 's' || key == 'S'){
+		if(pausa){
+			pausa = false;
+		}
+		else{
+			pausa=true;
+		}
+	}
 	//Up
 	if (key == 'q' || key == 'Q'){
 		frogger->setRot(0);
@@ -150,6 +159,17 @@ void GameManager::keyPressed(unsigned char key) {
 		gameLights->setDirectional();
 		gameLights->setPointLights();
 	}
+	else if (key == 'h' || key == 'H'){
+		if(glIsEnabled(GL_LIGHT7)){
+			glDisable(GL_LIGHT7);
+		}
+		else{
+		glEnable(GL_LIGHT7);
+		gameLights->setHeadlight(*frogger);
+		}
+		display();
+
+	}
 }
 
 
@@ -196,40 +216,45 @@ double GameManager::randomSpeed(){
 }
 
 void GameManager::update(double delta_t) {
+	
 	if (active_camera == 2){
 		(*_cameras[active_camera]).update(*frogger->getPosition());
 		if (glIsEnabled(GL_LIGHT1))
 			gameLights->setPointLights();
 	}
 
-	frogger->update(delta_t, 0, 0);
+	if(pausa){
+		frogger->update(delta_t, 0, 0);
+		if (glIsEnabled(GL_LIGHT7))
+			gameLights->setHeadlight(*frogger);
 
-	for(int i = 0; i < (int)_cars.size(); i++){
-		_cars[i]->update(delta_t, randomPosition(), randomSpeed());
-	}
-
-	for (int i = 0; i < (int)_logs.size(); i++){
-		_logs[i]->update(delta_t, randomPosition(), randomSpeed());
-	}
-
-
-	if (frogger->ymax < 7){
-		for (int i = 0; i < (int)_cars.size(); i++){
-			collisionCar(_cars[i]);
+		for(int i = 0; i < (int)_cars.size(); i++){
+			_cars[i]->update(delta_t, randomPosition(), randomSpeed());
 		}
-	}
 
-	else if ((frogger->ymax > 7)){
 		for (int i = 0; i < (int)_logs.size(); i++){
-			collisionTimberLog(_logs[i], i);
+			_logs[i]->update(delta_t, randomPosition(), randomSpeed());
+		}
+
+
+		if (frogger->ymax < 7){
+			for (int i = 0; i < (int)_cars.size(); i++){
+				collisionCar(_cars[i]);
 			}
-		if ((_logs[0]->_log == 0) && (_logs[1]->_log == 0) && (_logs[2]->_log == 0) && (_logs[3]->_log == 0)){
-			if (frogger->_log != -1){
-				frogger->setSpeed(*(frogger->getSpeed()) - Vector3(_logs[frogger->_log]->getSpeed()->getX(), 0, 0));
-			}
-			frogger->_log = -1;
-			if ((frogger->ymin > 7.7) && (frogger->ymax < 13.5)){
-				frogger->setPosition(0, 0.45, 0.075);
+		}
+
+		else if ((frogger->ymax > 7)){
+			for (int i = 0; i < (int)_logs.size(); i++){
+				collisionTimberLog(_logs[i], i);
+				}
+			if ((_logs[0]->_log == 0) && (_logs[1]->_log == 0) && (_logs[2]->_log == 0) && (_logs[3]->_log == 0)){
+				if (frogger->_log != -1){
+					frogger->setSpeed(*(frogger->getSpeed()) - Vector3(_logs[frogger->_log]->getSpeed()->getX(), 0, 0));
+				}
+				frogger->_log = -1;
+				if ((frogger->ymin > 7.7) && (frogger->ymax < 13.5)){
+					frogger->setPosition(0, 0.45, 0.075);
+				}
 			}
 		}
 	}
@@ -296,4 +321,6 @@ void GameManager::init() {
 	car = new Car(randomPosition(), 5.42, .01);
 	car->setSpeed(*(car->getSpeed()) + Vector3(randomSpeed(), 0, 0));
 	_cars.push_back(car);
+
+	
 }

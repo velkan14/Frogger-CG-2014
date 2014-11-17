@@ -109,15 +109,23 @@ void Lights::setPointLights(){
 	glLightfv(GL_LIGHT6, GL_SPOT_DIRECTION, spot_direction);
 }
 
-void Lights::setHeadlight(){
+void Lights::setHeadlight(Frog frogger){
 
-	GLfloat l7_position[] = { -5.5, .5, 8, 1 };
-	GLfloat l1_ambient[] = { .2, .2, .1, 1 };
+	double y = frogger.getPosition()->getY();
+	double x= frogger.getPosition()->getX();
+	double rot = frogger.getRot();
+	if(rot == 0){y = y-3;}
+	else if(rot==-90){x = x-3;}
+	else if (rot == 90){x=x+3;}
+	else{y = y+3;}
+
+	GLfloat l7_position[] = { x,  y, 3, 1 };
+	GLfloat l1_ambient[] = { .5, .5, .5, 1 };
 	GLfloat l1_diffuse[] = { 1, 1, 1, 1 };
 	GLfloat l1_specular[] = { 1, 1, 1, 1 };
 	GLfloat a = 1, b = 0.1, c = 0.01;
-	GLfloat spot_cutoff = 25, spot_exponent = 2;
-	GLfloat spot_direction[] = { 0.0, 0.0, -1.0 };
+	GLfloat spot_cutoff = 45, spot_exponent = 50;
+	GLfloat spot_direction[] = { 0.0, 2, -1.0 };
 
 
 	glLightfv(GL_LIGHT7, GL_AMBIENT, l1_ambient);
@@ -128,9 +136,12 @@ void Lights::setHeadlight(){
 	glLightf(GL_LIGHT7, GL_QUADRATIC_ATTENUATION, c);
 	glLightf(GL_LIGHT7, GL_SPOT_CUTOFF, spot_cutoff);
 	glLightf(GL_LIGHT7, GL_SPOT_EXPONENT, spot_exponent);
-	glLightfv(GL_LIGHT7, GL_POSITION, l7_position);
-	glLightfv(GL_LIGHT7, GL_SPOT_DIRECTION, spot_direction);
 
+	glLightfv(GL_LIGHT7, GL_POSITION, l7_position);
+	glPushMatrix();
+	glRotatef(rot, 0,0,1);
+	glLightfv(GL_LIGHT7, GL_SPOT_DIRECTION, spot_direction);
+	glPopMatrix();
 
 
 }

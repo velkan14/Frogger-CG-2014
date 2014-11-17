@@ -30,6 +30,7 @@ private:
 	double t_act, t_ant;
 	int t_speed, t_aux;
 	double minspeed, maxspeed;
+	bool pausa;
 
 public:
 	GameManager();
