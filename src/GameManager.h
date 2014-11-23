@@ -1,5 +1,6 @@
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
+#define _CRT_SECURE_NO_DEPRECATE
 #include <vector>
 #include "OrthogonalCamera.h"
 #include "PerspectiveCamera.h"
@@ -12,6 +13,7 @@
 #include "Roadside.h"
 #include "Riverside.h"
 #include "border.h"
+
 
 
 class GameManager {
@@ -31,6 +33,7 @@ private:
 	int t_speed, t_aux;
 	double minspeed, maxspeed;
 	bool pausa;
+	GLuint _textureRoad, _textureRiver;
 
 public:
 	GameManager();
@@ -57,6 +60,7 @@ public:
 
 	double randomPosition();
 	double randomSpeed();
+	GLuint loadBMP_custom(const char * imagepath);
 };
 
 #endif

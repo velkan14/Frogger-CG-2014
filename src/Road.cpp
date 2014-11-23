@@ -3,7 +3,9 @@
 Road::Road(){
 }
 
-Road::Road(double x,double y,double z):StaticObject(x,y,z){}
+Road::Road(double x,double y,double z, GLuint texture):StaticObject(x,y,z){
+	_texture = texture;
+}
 
 Road::~Road(){
 }
@@ -29,7 +31,7 @@ void Road::draw(){
 	glTranslated(-10, 1, 0);
 	for (int x = 0; x < 20; x++){
 		for (int y = 0; y < 5; y++){
-			drawSquare();
+			drawSquareTex();
 			glTranslated(0, 1, 0);
 		}
 		glTranslated(1, -5, 0);
@@ -71,4 +73,20 @@ void Road::draw(){
 		glTranslated(1, -10, 0);
 	}
 	glPopMatrix();
+}
+
+void Road::drawSquareTex(){
+	glBindTexture(GL_TEXTURE_2D, _texture);
+	glBegin(GL_QUADS);
+	glNormal3d(0, 0, 1);
+	glTexCoord2f(.1, 0);
+	glVertex3d(1, 0, 0);
+	glTexCoord2f(.1, .1);
+	glVertex3d(1, 1, 0);
+	glTexCoord2f(0, .1);
+	glVertex3d(0, 1, 0);
+	glTexCoord2f(0, 0);
+	glVertex3d(0, 0, 0);
+	glEnd();
+	glBindTexture(GL_TEXTURE_2D, NULL);
 }

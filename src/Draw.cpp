@@ -118,6 +118,7 @@ void drawTrapezoidalPrism(){
 }
 
 
+
 void drawCube(){
 
 	//Top
@@ -177,11 +178,16 @@ void drawCube(){
 
 void drawSquare(){
 
+	//glBindTexture(GL_TEXTURE_2D,)
 	glBegin(GL_QUADS);
 	glNormal3d(0, 0, 1);
+	glTexCoord2f(1, 0);
 	glVertex3d(1, 0, 0);
+	glTexCoord2f(1,1);
 	glVertex3d(1, 1, 0);
+	glTexCoord2f(0, 1);
 	glVertex3d(0, 1, 0);
+	glTexCoord2f(0, 0);
 	glVertex3d(0, 0, 0);
 	glEnd();
 }

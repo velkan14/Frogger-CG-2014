@@ -1,4 +1,5 @@
 #include "GameManager.h"
+
 GameManager * gm = 0;
 
 void reshape(GLsizei w, GLsizei h) {
@@ -23,8 +24,6 @@ void keyUp(unsigned char key, int x, int y){
 }
 
 int main(int argc, char ** argv) {
-	gm = new GameManager();
-	gm->init();
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowSize(1024, 768);
@@ -32,6 +31,7 @@ int main(int argc, char ** argv) {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_NORMALIZE);
+	glEnable(GL_TEXTURE_2D);
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
 	//glutIdleFunc(display);
@@ -40,6 +40,8 @@ int main(int argc, char ** argv) {
 	glutKeyboardFunc(keyPressed);
 	glutKeyboardUpFunc(keyUp);
 	glClearColor(0., 0., 0., 0.);
+	gm = new GameManager();
+	gm->init();
 	glutMainLoop();
 	return 0;
 }

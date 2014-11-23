@@ -3,14 +3,16 @@
 River::River(){
 }
 
-River::River(double x,double y,double z):StaticObject(x,y,z){}
+River::River(double x,double y,double z, GLuint texture):StaticObject(x,y,z){
+	_texture = texture;
+}
 
 River::~River(){
 }
 
 void River::draw(){
 
-	GLfloat mat_ambient[] = { .1, .3, .5, 1 };
+	GLfloat mat_ambient[] = { .2, .4, .6, 1 };
 	GLfloat mat_diffuse[] = { .4, .5, 1, 1 };
 	GLfloat mat_specular[] = { .1, .2, .4, 1 };
 	GLfloat mat_shininess[] = { 100 };
@@ -29,7 +31,7 @@ void River::draw(){
 		for (int y = 0; y < 10; y++){
 			glPushMatrix();
 			glScalef(.5,.5,1);
-			drawSquare();
+			drawSquareTex();
 			glPopMatrix();
 			glTranslated(0, 0.5, 0);
 		}
@@ -42,4 +44,19 @@ void River::draw(){
 	glScalef(20, 5, 1);
 	glutSolidCube(1);
 	glPopMatrix();*/
+}
+void River::drawSquareTex(){
+	glBindTexture(GL_TEXTURE_2D, _texture);
+	glBegin(GL_QUADS);
+	glNormal3d(0, 0, 1);
+	glTexCoord2f(.5, 0);
+	glVertex3d(1, 0, 0);
+	glTexCoord2f(.5,.5);
+	glVertex3d(1, 1, 0);
+	glTexCoord2f(0, .5);
+	glVertex3d(0, 1, 0);
+	glTexCoord2f(0, 0);
+	glVertex3d(0, 0, 0);
+	glEnd();
+	glBindTexture(GL_TEXTURE_2D, NULL);
 }
