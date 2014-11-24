@@ -24,16 +24,19 @@ private:
 	std::vector<Camera *> _cameras;
 	std::vector<Car *> _cars;
 	std::vector<TimberLog *> _logs;
+	std::vector<Frog *> _lives;
 
+	Frog * minifrog;
 	Frog * frogger;
 	Lights * gameLights;
 	int active_camera;
 	int _w, _h;
-	double t_act, t_ant;
+	double t_act, t_ant, t_passed;
 	int t_speed, t_aux;
 	double minspeed, maxspeed;
 	bool pausa;
 	GLuint _textureRoad, _textureRiver;
+	int vidas;
 
 public:
 	GameManager();
@@ -61,6 +64,9 @@ public:
 	double randomPosition();
 	double randomSpeed();
 	GLuint loadBMP_custom(const char * imagepath);
+
+	void escreve(char *s);
+	void desenha_vidas();
 };
 
 #endif

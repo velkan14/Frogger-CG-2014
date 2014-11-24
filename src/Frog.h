@@ -17,6 +17,7 @@ public:
 	double checkPositionY(double y);
 	void setRot(int rot);
 	int getRot();
+
 };
 
 #endif

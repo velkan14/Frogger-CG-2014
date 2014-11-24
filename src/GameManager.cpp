@@ -7,6 +7,7 @@ GameManager::GameManager() {
 	_game_objects = * new std::vector<GameObject *>;
 	_logs = * new std::vector<TimberLog *>;
 	_cars = * new std::vector<Car *>;
+	_lives = * new std::vector<Frog *>;
 	gameLights = new Lights();
 	active_camera = 0;
 	t_act=0; 
@@ -18,7 +19,8 @@ GameManager::GameManager() {
 	pausa = true;
 	_textureRoad = loadBMP_custom("C:\\Users\\Daniel\\Desktop\\CG\\Work\\textureRoad.bmp");
 	_textureRiver = loadBMP_custom("C:\\Users\\Daniel\\Desktop\\CG\\Work\\textureRiver.bmp");
-	
+	t_passed = 0;
+
 }
 
 GameManager::~GameManager() {
@@ -40,7 +42,7 @@ void GameManager::display() {
 	glClipPlane(GL_CLIP_PLANE1, eqn2); // x < 10
 	glEnable(GL_CLIP_PLANE1);
 	glPopMatrix();
-
+	
 	//glutTimerFunc(200, GameManagerTimer, 3);
 	(*_cameras[active_camera]).computeVisualizationMatrix();
 
@@ -63,6 +65,15 @@ void GameManager::display() {
 		glPopMatrix();
 	}
 
+	if (!pausa){
+		escreve("p");
+	}
+	if (vidas == 0){
+		escreve("r");
+	}
+
+	desenha_vidas();
+
 	glFlush();
 }
 
@@ -81,6 +92,32 @@ void GameManager::keyPressed(unsigned char key) {
 			pausa=true;
 		}
 	}
+	if (key == 'r' || key == 'R'){
+		
+		t_act = 0;
+		t_ant = 0;
+		minspeed = 0.002;
+		maxspeed = 0.003;
+		t_speed = 0;
+		t_aux = 0;
+		pausa = true;
+		vidas = 5;	
+		_cameras = *new std::vector <Camera *>;
+		_game_objects = *new std::vector<GameObject *>;
+		_logs = *new std::vector<TimberLog *>;
+		_cars = *new std::vector<Car *>;
+		t_passed = glutGet(GLUT_ELAPSED_TIME);
+		init();
+		(*_cameras[0]).reshape(_w, _h);
+		(*_cameras[0]).computeVisualizationMatrix();
+		(*_cameras[active_camera]).reshape(_w, _h);
+		(*_cameras[active_camera]).computeVisualizationMatrix();
+		gameLights->setDirectional();
+		gameLights->setPointLights();
+	}
+
+
+
 	//Up
 	if (key == 'q' || key == 'Q'){
 		frogger->setRot(0);
@@ -194,7 +231,7 @@ void GameManager::keyUp (unsigned char key) {
 
 
 void GameManager::onTimer() {
-	t_act = glutGet(GLUT_ELAPSED_TIME);
+	t_act = glutGet(GLUT_ELAPSED_TIME) - t_passed;
 	this->update(t_act - t_ant);
 	t_ant = t_act;
 }
@@ -225,7 +262,8 @@ void GameManager::update(double delta_t) {
 			gameLights->setPointLights();
 	}
 
-	if(pausa){
+	if(pausa && (vidas != 0 )){
+
 		frogger->update(delta_t, 0, 0);
 		if (glIsEnabled(GL_LIGHT7))
 			gameLights->setHeadlight(*frogger);
@@ -255,6 +293,7 @@ void GameManager::update(double delta_t) {
 				}
 				frogger->_log = -1;
 				if ((frogger->ymin > 7.7) && (frogger->ymax < 13.5)){
+					vidas--;
 					frogger->setPosition(0, 0.45, 0.075);
 				}
 			}
@@ -265,6 +304,7 @@ void GameManager::update(double delta_t) {
 
 void GameManager::collisionCar(Car * car){
 		if((frogger->xmax > car->xmin) && (frogger->xmin < car->xmax) && (frogger->ymax > car->ymin) && (frogger->ymin < car->ymax)){
+			vidas--;
 			frogger->setPosition(0,0.45,0.075);
 		}
 }
@@ -287,6 +327,12 @@ void GameManager::collisionTimberLog(TimberLog * _log, int i){
 }
 
 void GameManager::init() {
+	vidas = 5;
+	double x = 9.5;
+	for (int i = 0; i < 5; i++){
+		_lives.push_back(new Frog(-x, .3, 0));
+		x = x - 0.5;
+	}
 	_cameras.push_back(new OrthogonalCamera(-10, 10, 0, 14, -1, 10));
 	_cameras.push_back(new PerspectiveCamera(90, 1, 1, 20, 0, 1.5, 10));
 	_cameras.push_back(new PerspectiveCamera(90, 1, 1, 20, 0, 0, 3));
@@ -393,4 +439,72 @@ GLuint GameManager::loadBMP_custom(const char * imagepath){
 
 	glBindTexture(GL_TEXTURE_2D,NULL);
 	return textureID;
+}
+
+
+void GameManager::escreve(char *s){
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, _w, 0, _h);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_LIGHTING);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glPushMatrix();
+	glRasterPos2f(0, 400);
+
+	int len, i;
+	char * string;
+	string = "";
+
+	if (s == "p"){
+		string = "                                                    Jogo em pausa, para continuar pressione 'S'";
+	}
+	else if (s == "r"){
+		string = "                                                     Jogo perdido, para recomecar pressione 'R'";
+	}
+
+	len = (int)strlen(string);
+	for (i = 0; i < len; i++) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, string[i]);
+	}
+	glEnable(GL_LIGHTING);
+	glPopMatrix();
+
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+	glutSwapBuffers();
+
+}
+
+void GameManager::desenha_vidas(){
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	(*_cameras[0]).computeProjectionMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	(*_cameras[0]).computeVisualizationMatrix();
+
+	glPushMatrix();
+	int i = 0;
+	for (i; i != vidas; i++){
+		glPushMatrix();
+		glTranslatef(_lives[i]->getPosition()->getX(), _lives[i]->getPosition()->getY(), _lives[i]->getPosition()->getZ());
+		glScalef(.4, .4, .4);
+		_lives[i]->draw();
+		glPopMatrix();
+	}
+	glPopMatrix();
+
+	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+	glutSwapBuffers();
 }
