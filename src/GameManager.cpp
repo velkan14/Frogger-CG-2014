@@ -17,8 +17,8 @@ GameManager::GameManager() {
 	t_speed = 0;
 	t_aux = 0;
 	pausa = true;
-	_textureRoad = loadBMP_custom("C:\\Users\\Daniel\\Desktop\\CG\\Work\\textureRoad.bmp");
-	_textureRiver = loadBMP_custom("C:\\Users\\Daniel\\Desktop\\CG\\Work\\textureRiver.bmp");
+	_textureRoad = loadBMP_custom("z:\\Desktop\\Frogger\\src\\textureRoad.bmp");
+	_textureRiver = loadBMP_custom("z:\\Desktop\\Frogger\\src\\river2.bmp");
 	t_passed = 0;
 
 }
@@ -29,7 +29,7 @@ GameManager::~GameManager() {
 void GameManager::display() {
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	//Por cada objecto fazer draw!!! :D
-	
+
 	GLdouble eqn[4] = { 1.0, 0.0, 0.0, 0.0 };
 	GLdouble eqn2[4] = { -1.0, 0.0, 0.0, 0.0 };
 	glPushMatrix();
@@ -85,11 +85,12 @@ void GameManager::reshape(GLsizei w, GLsizei h) {
 
 void GameManager::keyPressed(unsigned char key) {
 	if (key == 's' || key == 'S'){
-		if(pausa){
+		if(pausa && (vidas != 0 )){
 			pausa = false;
 		}
 		else{
 			pausa=true;
+			//frogger->setSpeed(0,0,0);
 		}
 	}
 	if (key == 'r' || key == 'R'){
@@ -208,25 +209,27 @@ void GameManager::keyPressed(unsigned char key) {
 		}
 		display();
 
+
 	}
 }
 
 
 void GameManager::keyUp (unsigned char key) {
 
-	//Up
-	if (key == 'q' || key == 'Q'){
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, -0.004, 0));
-	}//Down
-	else if (key == 'a' || key == 'A') {
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, 0.004, 0));
-	}//Left
-	else if (key == 'o' || key == 'O') {
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0.005,0,0));
-	}//Right
-	else if (key == 'p' || key == 'P'){
-		frogger->setSpeed(*(frogger->getSpeed()) + Vector3(-0.005,0,0));
-	}
+		//Up
+		if (key == 'q' || key == 'Q'){
+			frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, -0.004, 0));
+		}//Down
+		else if (key == 'a' || key == 'A') {
+			frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0, 0.004, 0));
+		}//Left
+		else if (key == 'o' || key == 'O') {
+			frogger->setSpeed(*(frogger->getSpeed()) + Vector3(0.005,0,0));
+		}//Right
+		else if (key == 'p' || key == 'P'){
+			frogger->setSpeed(*(frogger->getSpeed()) + Vector3(-0.005,0,0));
+		}
+
 }  
 
 
@@ -328,7 +331,7 @@ void GameManager::collisionTimberLog(TimberLog * _log, int i){
 
 void GameManager::init() {
 	vidas = 5;
-	double x = 9.5;
+	double x =9.5;
 	for (int i = 0; i < 5; i++){
 		_lives.push_back(new Frog(-x, .3, 0));
 		x = x - 0.5;
@@ -446,7 +449,7 @@ void GameManager::escreve(char *s){
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
-	gluOrtho2D(0, _w, 0, _h);
+	gluOrtho2D(0,_w, 0, _h);
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
@@ -460,10 +463,10 @@ void GameManager::escreve(char *s){
 	string = "";
 
 	if (s == "p"){
-		string = "                                                    Jogo em pausa, para continuar pressione 'S'";
+		string = "Jogo em pausa, para continuar pressione 'S'";
 	}
 	else if (s == "r"){
-		string = "                                                     Jogo perdido, para recomecar pressione 'R'";
+		string = "Jogo perdido, para recomecar pressione 'R'";
 	}
 
 	len = (int)strlen(string);
@@ -491,6 +494,9 @@ void GameManager::desenha_vidas(){
 	(*_cameras[0]).computeVisualizationMatrix();
 
 	glPushMatrix();
+	glDisable(GL_CLIP_PLANE0);
+	glDisable(GL_CLIP_PLANE1);
+
 	int i = 0;
 	for (i; i != vidas; i++){
 		glPushMatrix();
@@ -499,9 +505,12 @@ void GameManager::desenha_vidas(){
 		_lives[i]->draw();
 		glPopMatrix();
 	}
+
+	glEnable(GL_CLIP_PLANE0);
+	glEnable(GL_CLIP_PLANE1);
 	glPopMatrix();
 
-	glPopMatrix();
+	//glPopMatrix();
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);

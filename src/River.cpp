@@ -17,7 +17,7 @@ void River::draw(){
 	GLfloat mat_specular[] = { .1, .2, .4, 1 };
 	GLfloat mat_shininess[] = { 100 };
 
-	glColor3f(0.0f, 0.0f, 1.0f); //blue
+	glColor3f(204, 255, 255); //blue
 	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
@@ -49,11 +49,11 @@ void River::drawSquareTex(){
 	glBindTexture(GL_TEXTURE_2D, _texture);
 	glBegin(GL_QUADS);
 	glNormal3d(0, 0, 1);
-	glTexCoord2f(.5, 0);
+	glTexCoord2f(1, 0);
 	glVertex3d(1, 0, 0);
-	glTexCoord2f(.5,.5);
+	glTexCoord2f(1,1);
 	glVertex3d(1, 1, 0);
-	glTexCoord2f(0, .5);
+	glTexCoord2f(0, 1);
 	glVertex3d(0, 1, 0);
 	glTexCoord2f(0, 0);
 	glVertex3d(0, 0, 0);
